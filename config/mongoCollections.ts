@@ -19,4 +19,5 @@ const getCollectionFn = (collection: string) => {
 module.exports = {
     users: getCollectionFn("users"),
     meals: getCollectionFn("meals"),
+    invitations: getCollectionFn("invitations"),
 };
