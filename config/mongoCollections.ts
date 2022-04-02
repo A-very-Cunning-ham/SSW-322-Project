@@ -1,7 +1,7 @@
 import { connectToDb } from "./mongoConnection";
 
 /* This will allow you to have one reference to each collection per app */
-/* Feel free to copy and paste this this */
+/* Feel free to copy and paste this */
 const getCollectionFn = (collection: string) => {
     let _col = undefined;
 
