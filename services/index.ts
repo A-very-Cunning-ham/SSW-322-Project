@@ -1,5 +1,8 @@
-module.exports = {
-    users: require("./users"),
-    meals: require("./meals"),
-    invitations: require("./invitations"),
-}
+export { createMeal, getMealById, updateMeal } from "./meals";
+export {
+    createPost,
+    getPostById,
+    addMealToPost,
+    addAttendeeToPost,
+    updatePost,
+} from "./posts";
