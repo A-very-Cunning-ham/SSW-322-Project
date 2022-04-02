@@ -1,5 +1,4 @@
-import { meals } from "../config/mongoCollections";
-import { addMealToPost } from "./posts";
+import { posts } from "../config/mongoCollections";
 const { ObjectId } = require("mongodb");
 
 export const createMeal = async (
@@ -9,27 +8,32 @@ export const createMeal = async (
     filters: object,
     postId: string
 ) => {
-    const mealCollection = await meals();
+    const postCollection = await posts();
     const newMeal = {
+        _id: ObjectId(),
         title: title,
         price: price,
         description: description,
         filters: filters,
     };
-    const insertInfo = await mealCollection.insertOne(newMeal);
-    if (!insertInfo.acknowledged || !insertInfo.insertedId) {
+    const updateInfo = await postCollection.updateOne(
+        { _id: ObjectId(postId) },
+        { $set: { meal: newMeal } }
+    );
+    if (!updateInfo.acknowledged || !updateInfo.insertedId) {
         throw "Could not create meal";
     }
-    const IDAsString = insertInfo.insertedId.toString();
-    addMealToPost(IDAsString, postId);
+    const IDAsString = updateInfo.insertedId.toString();
     return IDAsString;
 };
 
 export const getMealById = async (mealId: string) => {
-    const mealCollection = await meals();
-    const meal = await mealCollection.findOne({ _id: ObjectId(mealId) });
-    if (!meal) throw "No meal found";
-    return meal;
+    const postCollection = await posts();
+    const postWithMeal = await postCollection.findOne({
+        "meal._id": ObjectId(mealId),
+    });
+    if (!postWithMeal) throw "No meal found";
+    return postWithMeal.meal;
 };
 
 export const updateMeal = async (
@@ -39,15 +43,15 @@ export const updateMeal = async (
     description: string,
     filters: object
 ) => {
-    const mealCollection = await meals();
-    const updateInfo = await mealCollection.updateOne(
-        { _id: ObjectId(mealId) },
+    const postCollection = await posts();
+    const updateInfo = await postCollection.updateOne(
+        { "meal._id": ObjectId(mealId) },
         {
             $set: {
-                title: title,
-                price: price,
-                description: description,
-                filters: filters,
+                "meal.title": title,
+                "meal.price": price,
+                "meal.description": description,
+                "meal.filters": filters,
             },
         }
     );

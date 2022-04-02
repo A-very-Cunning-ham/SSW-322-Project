@@ -1,17 +1,5 @@
 const { ObjectId } = require("mongodb");
 import { posts } from "../config/mongoCollections";
-export const addMealToPost = async (mealId: string, postId: string) => {
-    if (!ObjectId.isValid(mealId) || !ObjectId.isValid(postId)) {
-        throw "Invalid ID";
-    }
-    const postCollection = await posts();
-    const updateInfo = await postCollection.updateOne(
-        { _id: ObjectId(postId) },
-        { $set: { mealId: mealId } }
-    );
-    if (updateInfo.modifiedCount === 0) throw "could not add meal to post";
-    return await getPostById(postId);
-};
 
 export const getPostById = async (postId: string) => {
     if (!ObjectId.isValid(postId)) {
@@ -43,7 +31,7 @@ export const createPost = async (
         hostId: hostId,
         capacity: capacity,
         address: address,
-        mealId: null,
+        meal: null,
         attendees: [],
         current: startTime > new Date(), //unsure if this comparison actually works, there's another datetime library called moment.js that might be worth checking out if we have issues.
     };
@@ -81,7 +69,7 @@ export const updatePost = async (
         country: string;
         zip: string;
     },
-    mealId: string,
+    meal,
     attendees: string[]
 ) => {
     if (!ObjectId.isValid(postId)) {
@@ -97,7 +85,7 @@ export const updatePost = async (
                 hostId: hostId,
                 capacity: capacity,
                 address: address,
-                mealId: mealId,
+                meal: meal,
                 attendees: attendees,
                 current: startTime > new Date(),
             },

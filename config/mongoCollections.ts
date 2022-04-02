@@ -1,7 +1,5 @@
 import { connectToDb } from "./mongoConnection";
 
-/* This will allow you to have one reference to each collection per app */
-/* Feel free to copy and paste this this */
 const getCollectionFn = (collection: string) => {
     let _col = undefined;
 
@@ -15,7 +13,5 @@ const getCollectionFn = (collection: string) => {
     };
 };
 
-/* Now, you can list your collections here: */
-export const users = getCollectionFn("users");
-export const meals = getCollectionFn("meals");
+//if there end up being other collections, export them here.
 export const posts = getCollectionFn("posts");
