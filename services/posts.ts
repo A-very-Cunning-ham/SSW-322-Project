@@ -28,7 +28,7 @@ export const createPost = async (
     const newPost = {
         startTime: startTime,
         endTime: endTime,
-        hostId: hostId,
+        hostId: ObjectId(hostId),
         capacity: capacity,
         address: address,
         meal: null,
@@ -54,6 +54,12 @@ export const addAttendeeToPost = async (postId: string, attendeeId: string) => {
     );
     if (updateInfo.modifiedCount === 0) throw "could not add attendee to post";
     return await getPostById(postId);
+};
+
+export const getAllPosts = async () => {
+    const postCollection = await posts();
+    const foundPosts = await postCollection.find({}).toArray();
+    return foundPosts;
 };
 
 export const updatePost = async (
@@ -93,4 +99,18 @@ export const updatePost = async (
     );
     if (updateInfo.modifiedCount === 0) throw "could not update post";
     return await getPostById(postId);
+};
+
+export const getPostsByHostId = async (hostId: string) => {
+    if (!ObjectId.isValid(hostId)) {
+        throw "Invalid ID";
+    }
+    const postCollection = await posts();
+    const foundPosts = await postCollection
+        .find({
+            hostId: ObjectId(hostId),
+        })
+        .toArray();
+    if (foundPosts.length === 0) throw "No posts found";
+    return foundPosts;
 };
