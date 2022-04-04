@@ -15,3 +15,4 @@ const getCollectionFn = (collection: string) => {
 
 //if there end up being other collections, export them here.
 export const posts = getCollectionFn("posts");
+export const users = getCollectionFn("users");
