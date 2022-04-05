@@ -1,5 +1,5 @@
 // pages
-import Registration from "./pages/Registration";
+import Registration from "./pages/Register";
 
 // other
 import {FC} from "react";
@@ -16,8 +16,8 @@ interface Route {
 export const routes: Array<Route> = [
     {
         key: 'reg-route',
-        title: 'Registration',
-        path: '/',
+        title: 'Register',
+        path: '/register',
         enabled: true,
         component: Registration
     }
