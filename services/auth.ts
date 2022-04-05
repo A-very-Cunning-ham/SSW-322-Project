@@ -5,7 +5,6 @@ const { ObjectId } = require("mongodb");
 
 export const login = async (
     username: string,
-    email: string,
     password: string,
 ) => {
     const userCollection = await users();

@@ -5,3 +5,10 @@ export {
     addAttendeeToPost,
     updatePost,
 } from "./posts";
+export {
+    createUser,
+} from "./users";
+export {
+    login,
+    verifyJWT,
+} from "./auth";
