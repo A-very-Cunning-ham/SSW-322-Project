@@ -35,7 +35,8 @@ function App() {
           <Routes>
             <Route
               path="/meals/:id"
-              element={<Meal />}
+              // TODO: pass props
+              element={<Meal />} 
             />
 
             <Route
