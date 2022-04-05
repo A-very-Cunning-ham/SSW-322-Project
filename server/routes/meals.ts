@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 import * as meals from "../services/meals";
 
-router.get("/meals/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     try {
         const meal = await meals.getMealById(req.params.id);
         res.json(meal);
@@ -11,7 +11,7 @@ router.get("/meals/:id", async (req, res) => {
     }
 });
 
-router.post("/meals/:id", async (req, res) => {
+router.post("/:id", async (req, res) => {
     try {
         const createdMeal = await meals.createMeal(
             req.body.title,
@@ -26,7 +26,7 @@ router.post("/meals/:id", async (req, res) => {
     }
 });
 
-router.put("/meals/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
     try {
         const updatedMeal = await meals.updateMeal(
             req.params.id,

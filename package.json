@@ -1,6 +1,7 @@
 {
   "name": "placeholder",
   "version": "0.1.0",
+  "main": "index.js",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.8.2",
@@ -25,6 +26,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "API-test": "node server/server.ts",
+    "seed": "node server/seed.ts",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -44,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
