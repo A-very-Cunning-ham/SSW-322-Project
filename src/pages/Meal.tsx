@@ -48,7 +48,8 @@ const Meal: FC<Props> = ({description, host, image, location, name, price}): Rea
             </Grid>
 
             <Grid item xs="auto">
-                <Card sx={{ minWidth: 275 }}>
+            {/* TODO: align this to the right side of the page */}
+                <Card sx={{ minWidth: 275 }}> 
                     <CardContent>
                         <Typography variant="h5" component="div">
                             {price}

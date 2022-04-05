@@ -1,12 +1,13 @@
 import React from "react";
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { routes as appRoutes } from "./routes";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from './components/Header';
+import Home from "./pages/Home";
+import Meal from "./pages/Meal";
 
 function App() {
-  
+
   // define theme
   const theme = createTheme({
     palette: {
@@ -28,19 +29,22 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header title="PlaceHolder"/>
+      <Header title="PlaceHolder" />
       <Box height="100vh" display="flex" flexDirection="column">
-        <Router>
+        <BrowserRouter>
           <Routes>
-            {appRoutes.map((route) => (
-              <Route
-                key={route.key}
-                path={route.path}
-                element={<route.component />}
-              />
-            ))}
+            <Route
+              path="/meals/:id"
+              element={<Meal />}
+            />
+
+            <Route
+              path="/"
+              element={<Home />}
+            />
+
           </Routes>
-        </Router>
+        </BrowserRouter>
       </Box>
     </ThemeProvider>
   );
