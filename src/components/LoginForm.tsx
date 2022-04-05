@@ -12,7 +12,7 @@ interface Props {
     onSubmit: (values: Values) => void;
 }
 
-export const UseForm: React.FC<Props> = ({onSubmit}) => {
+export const LoginForm: React.FC<Props> = ({onSubmit}) => {
     return (
         <Formik 
             initialValues={{ username: '', password: ''}} 
