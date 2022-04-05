@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 import * as auth from "../services/auth";
 
-router.post("/users", async (req, res) => {
+router.post("/auth", async (req, res) => {
     try {
         const token = await auth.login(
             req.body.username,
@@ -15,7 +15,7 @@ router.post("/users", async (req, res) => {
     }
 });
 
-router.get("users/this", auth.verifyJWT, (req, res) => {
+router.get("auth/verify", auth.verifyJWT, (req, res) => {
     try { 
         res.json({isLoggedIn: true, username: req.user.username});
     } catch (err) {
