@@ -1,7 +1,31 @@
 import React, { ReactElement, FC } from "react";
 import { Avatar, Box, Button, Card, CardActions, CardContent, Chip, Grid, Typography } from "@mui/material";
+import { Url } from "url";
+import { toNamespacedPath } from "path";
 
-const Meal: FC<any> = (): ReactElement => {
+interface Tag {
+    text: string;
+    color: string;
+}
+
+interface Host {
+    firstName: string;
+    lastName: string;
+    username: string;
+    imageUrl: string;
+}
+
+interface Props {
+    name: string;
+    price: number;
+    location: string;
+    description: string;
+    image: string;
+    tags?: Tag[];
+    host: Host;
+}
+
+const Meal: FC<Props> = ({description, host, image, location, name, price}): ReactElement => {
     return (
         <Grid container spacing={2}>
             <Grid item container spacing={2}
@@ -9,10 +33,10 @@ const Meal: FC<any> = (): ReactElement => {
                 justifyContent="space-between"
                 alignItems="flex-start">
                 <Grid item xs={2}>
-                    <Avatar src="https://pinchofyum.com/wp-content/uploads/Best-Instant-Pot-Mac-and-Cheese-1024x1536.jpg" />
+                    <Avatar src={host.imageUrl} />
                 </Grid>
                 <Grid item xs={5}>
-                    <Typography align="center">Meal Name</Typography>
+                    <Typography align="center">{name}</Typography>
                 </Grid>
                 <Grid item xs={2}>
                     <Button>Join Meal</Button>
@@ -27,10 +51,10 @@ const Meal: FC<any> = (): ReactElement => {
                 <Card sx={{ minWidth: 275 }}>
                     <CardContent>
                         <Typography variant="h5" component="div">
-                            $ 15.99
+                            {price}
                         </Typography>
                         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                            Hoboken, NJ
+                            {location}
                         </Typography>
                         <Box component="img" sx={{ maxWidth: "100%" }} src="https://www.400capital.com/wp-content/uploads/2014/02/map-placeholder.png" alt="map placeholder image" />
                         <br />
@@ -39,11 +63,11 @@ const Meal: FC<any> = (): ReactElement => {
                     </CardContent>
                 </Card>
 
-                
+
             </Grid>
             <Grid item xs={5}>
-                    <Typography variant="body1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eget viverra ex, a maximus urna. Proin eget leo blandit, rutrum orci sed, congue ante. Donec a justo vitae arcu pellentesque placerat in in diam. Curabitur at magna vitae eros varius congue. Phasellus ornare lacus nec fringilla accumsan. Nunc nunc libero, efficitur eu imperdiet sit amet, vehicula interdum nibh. Sed tincidunt magna sed sem interdum imperdiet.</Typography>
-                </Grid>
+                <Typography variant="body1">{description}</Typography>
+            </Grid>
 
         </Grid>
     );
