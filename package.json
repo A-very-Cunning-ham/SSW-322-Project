@@ -26,8 +26,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "API-test": "node server/server.ts",
-    "seed": "node server/seed.ts",
+    "API-test": "ts-node server/server",
+    "seed": "ts-node server/seed",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

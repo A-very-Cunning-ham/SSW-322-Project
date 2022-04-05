@@ -1,20 +1,48 @@
-const faker = require("faker");
-const MongoClient = require("mongodb").MongoClient;
+import { posts } from "./config/mongoCollections";
 const { ObjectId } = require("mongodb");
+import * as postFuncs from "./services/posts";
+import * as mealFuncs from "./services/meals";
 const seedDB = async () => {
-    const uri = "mongodb://localhost:27017/";
-    const client = new MongoClient(uri, { useNewUrlParser: true });
+    const postCollection = await posts();
+    postCollection.drop();
+
     try {
-        await client.connect();
-        console.log("Connected correctly to server");
-        const collection = client.db("placeholder").collection("posts");
+        let newPost1 = await postFuncs.createPost(
+            new Date("2022-05-01"),
+            new Date("2022-05-02"),
+            new ObjectId.toString(),
+            4,
+            {
+                street: "123 Main St",
+                city: "Boston",
+                state: "MA",
+                country: "USA",
+                zip: "02134",
+            }
+        );
 
-        collection.drop();
-
-        //TODO add creation funcs here
+        let newMeal1 = await mealFuncs.createMeal(
+            "Kentucky Fried Chicken",
+            3.5,
+            "Golden battered chicken served fresh and crispy.",
+            {
+                vegetarian: false,
+                vegan: false,
+                chicken: true,
+                beef: false,
+                pork: false,
+                seafood: false,
+                rice: false,
+                pasta: false,
+                soup: false,
+                dessert: false,
+                alcohol: false,
+            },
+            newPost1
+        );
     } catch (error) {
         console.log(error);
     }
 };
 
-seedDB();
+await seedDB();
