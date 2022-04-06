@@ -30,7 +30,7 @@ export default function SignUp() {
 
     console.log(user);
 
-    fetch("http://localhost:3001/api/users", {
+    fetch("/api/users", {
       method: "POST",
       headers: {
         "Content-type": "application/json"
