@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Home from "./pages/Home";
 import Meal from "./pages/Meal";
 import Register from "./pages/Register";
+import CreateMeal from "./pages/CreateMeal";
 
 function App() {
 
@@ -48,6 +49,11 @@ function App() {
             <Route
               path="/register"
               element={<Register />}
+            />
+
+<Route
+              path="/createmeal"
+              element={<CreateMeal />}
             />
 
           </Routes>

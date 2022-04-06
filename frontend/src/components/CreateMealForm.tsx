@@ -85,6 +85,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 <Select
                     multiple
                     value={tagName}
+                    name="restriction"
                     onChange={handleChange}
                     input={<OutlinedInput label="Tag" />}
                     renderValue={(selected) => selected.join(', ')}
