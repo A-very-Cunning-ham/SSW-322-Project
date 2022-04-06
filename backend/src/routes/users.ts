@@ -8,7 +8,7 @@ router.post("/users", async (req: any, res: any) => {
         const createdUser = await users.createUser(
             req.body.username,
             req.body.email,
-            req.body.password,
+            req.body.password
         );
         res.json(createdUser);
     } catch (err) {

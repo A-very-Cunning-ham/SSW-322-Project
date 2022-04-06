@@ -7,7 +7,7 @@ router.post("/auth", async (req: any, res: any) => {
         const token = await auth.login(
             req.body.username,
             req.body.email,
-            req.body.password,
+            req.body.password
         );
         res.json(token);
     } catch (err) {
@@ -16,11 +16,11 @@ router.post("/auth", async (req: any, res: any) => {
 });
 
 router.get("auth/verify", auth.verifyJWT, (req: any, res: any) => {
-    try { 
-        res.json({isLoggedIn: true, username: req.user.username});
+    try {
+        res.json({ isLoggedIn: true, username: req.user.username });
     } catch (err) {
-        res.json({isLoggedIn: false, message: err});
+        res.json({ isLoggedIn: false, message: err });
     }
-})
+});
 
 export { router };
