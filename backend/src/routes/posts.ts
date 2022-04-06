@@ -16,7 +16,7 @@ router.post("/", async (req: any, res: any) => {
         const newPost = await posts.createPost(
             req.body.startTime,
             req.body.endTime,
-            req.body.hostId,
+            // req.body.hostId,
             req.body.capacity,
             req.body.address
         );
@@ -65,13 +65,13 @@ router.patch("/:id", async (req: any, res: any) => {
     }
 });
 
-router.get("/hostedby/:id", async (req: any, res: any) => {
-    try {
-        const postsByHost = await posts.getPostsByHostId(req.params.id);
-        res.json(postsByHost);
-    } catch (err) {
-        res.status(500).json({ error: err });
-    }
-});
+// router.get("/hostedby/:id", async (req: any, res: any) => {
+//     try {
+//         const postsByHost = await posts.getPostsByHostId(req.params.id);
+//         res.json(postsByHost);
+//     } catch (err) {
+//         res.status(500).json({ error: err });
+//     }
+// });
 
 export { router };
