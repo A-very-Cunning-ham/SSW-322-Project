@@ -1,6 +1,6 @@
 import { Button, TextField } from '@mui/material/';
 import * as React from 'react';
-import {Formik, Form} from 'formik';
+import {Formik, Form, validateYupSchema} from 'formik';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -22,10 +22,12 @@ const MenuProps = {
 interface Values {
     mealName: string
     description: string
+    address: string
     price: string
+    capacity: number
     startTime: string
     endTime: string
-    comments: string
+    tagNames: string[]
 }
 
 interface Props {
@@ -44,12 +46,23 @@ const dietaryRestrictionTags = [
   ];
 
 export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
-    const [tagName, setTagName] = React.useState<string[]>([]); //for dietary restriction tags
+    const [tagNames, setTagName] = React.useState<string[]>([]); //for dietary restriction tags
+    const updateCheckboxValue = (event: SelectChangeEvent<string[]>) => {
+        const {
+          target: { value },
+        } = event;
+        setTagName(
+          // On autofill we get a stringified value.
+          typeof value === 'string' ? value.split(',') : value,
+        );
+      };
 
     return (
         <Formik 
-            initialValues={{ mealName:'', description:'',price:'',startTime:'',endTime:'',comments:''}} 
+            initialValues={{ mealName:'', description:'',address:'',price:'',capacity:0,startTime:'',endTime:'', tagNames:['']}} 
             onSubmit={values => {
+                //do something
+                values['tagNames'] = tagNames
                 onSubmit(values);
             }}
             >
@@ -73,6 +86,21 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 /></div>
                 <div>
                 <TextField 
+                    placeholder='Address'
+                    name="address"
+                    value={values.address}
+                    onChange={handleChange}
+                    onBlur={handleBlur} 
+                /></div>
+                <div>
+                <TextField 
+                    placeholder='Capacity'
+                    name="capacity"
+                    value={values.capacity}
+                    onChange={handleChange}
+                    onBlur={handleBlur} 
+                />
+                <TextField 
                     placeholder='Price'
                     name="price"
                     value={values.price}
@@ -81,18 +109,20 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 /></div>
                 <div>
                 <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel>Dietary Restrictions</InputLabel>
+                <InputLabel id="diet-restrictions-label">Dietary Restrictions</InputLabel>
                 <Select
+                    labelId="diet-restrictions-label"
+                    id="diet-restrictions"
                     multiple
-                    value={tagName}
-                    onChange={handleChange}
+                    value={tagNames}
+                    onChange={updateCheckboxValue}
                     input={<OutlinedInput label="Tag" />}
                     renderValue={(selected) => selected.join(', ')}
                     MenuProps={MenuProps}
                 >
                     {dietaryRestrictionTags.map((tag) => (
                     <MenuItem key={tag} value={tag}>
-                        <Checkbox checked={tagName.indexOf(tag) > -1} />
+                        <Checkbox checked = {tagNames.indexOf(tag) > -1} />
                         <ListItemText primary={tag} />
                     </MenuItem>
                     ))}
@@ -109,7 +139,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 />
                 <Select
                     onChange={handleChange}
-                    placeholder='AM'
+                    defaultValue = "AM"
                 >
                     <MenuItem value={'AM'}>AM</MenuItem>
                     <MenuItem value={'PM'}>PM</MenuItem>
@@ -122,7 +152,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     onBlur={handleBlur} 
                 />
                 <Select
-                   placeholder='AM'
+                   defaultValue = "AM"
                    onChange={handleChange}
                 >
                     <MenuItem value={'AM'}>AM</MenuItem>
@@ -140,6 +170,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     />
                 </Button>
                 </div>
+                
                 <Button type="submit">Save Changes</Button>
             </Form>
             )}

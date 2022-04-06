@@ -5,7 +5,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from './components/Header';
 import Home from "./pages/Home";
 import Meal from "./pages/Meal";
+import CreatePost from "./pages/CreatePost";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
+import ViewPost from "./pages/ViewPost";
+import { CreateNewFolderSharp } from "@mui/icons-material";
 
 function App() {
 
@@ -44,10 +48,21 @@ function App() {
               path="/"
               element={<Home />}
             />
-
+            <Route
+              path="/createpost"
+              element={<CreatePost />}
+            />
             <Route
               path="/register"
               element={<Register />}
+            />
+            <Route
+              path="/login"
+              element={<Login />}
+            />
+            <Route
+              path="/viewpost/:id"
+              element={<ViewPost />}
             />
 
           </Routes>
