@@ -19,6 +19,17 @@ const CreateMeal: FC<any> = (): ReactElement => {
             </div>
         <div style={{ textAlign: "center" }}>
             <CreateMealForm onSubmit={({ mealName, description, price, startTime, endTime, capacity, address, tagNames }) => {
+                console.log("Now we make a meal!")
+                console.log({
+                    "mealName": mealName,
+                    "description": description,
+                    "price": price,
+                    "startTime": startTime,
+                    "endTime": endTime,
+                    "capacity": capacity,
+                    "address": address,
+                    "tagNames": tagNames
+                })
                 let newPost = fetch("/api/posts", {
                     method: "POST",
                     headers: {
