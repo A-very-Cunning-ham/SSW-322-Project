@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
+import {Box} from "@mui/material";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -159,16 +160,20 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     <MenuItem value={'PM'}>PM</MenuItem>
                 </Select></div>
                 <div>
-                <Button
-                    variant="contained"
-                    component="label"
-                    >
-                    Upload Image
-                    <input
-                        type="file"
-                        hidden
-                    />
-                </Button>
+                <Box sx={{
+                    padding: '10px'
+                }}>
+                    <Button
+                        variant="contained"
+                        component="label"
+                        >
+                        Upload Image
+                        <input
+                            type="file"
+                            hidden
+                        />
+                    </Button>
+                </Box>
                 </div>
                 
                 <Button type="submit">Save Changes</Button>

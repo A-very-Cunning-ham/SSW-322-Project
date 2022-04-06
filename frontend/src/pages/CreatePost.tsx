@@ -6,6 +6,17 @@ import { CreateMealForm } from '../components/CreateMealForm';
 const CreateMeal: FC<any> = (): ReactElement => {
     return (
         <div style={{textAlign: "center" }}>
+            <div style={{textAlign: "center" }}>
+                <Box sx={{
+                    flexGrow: 1,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: '30px'
+                }}>
+                    <Typography variant="h3">Meal Creation</Typography>
+                </Box>
+            </div>
         <CreateMealForm onSubmit={( {mealName, description,price,startTime,endTime,capacity,address,tagNames}) => {
             let newPost:any;
             fetch("/api/posts", {
