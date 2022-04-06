@@ -5,7 +5,7 @@ export const createMeal = async (
     title: string,
     price: number,
     description: string,
-    filters: object,
+    filters: string[],
     postId: string
 ) => {
     const postCollection = await posts();
@@ -41,7 +41,7 @@ export const updateMeal = async (
     title: string,
     price: number,
     description: string,
-    filters: object
+    filters: string[]
 ) => {
     const postCollection = await posts();
     const updateInfo = await postCollection.updateOne(
