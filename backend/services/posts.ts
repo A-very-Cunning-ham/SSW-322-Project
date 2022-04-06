@@ -75,7 +75,7 @@ export const updatePost = async (
         country: string;
         zip: string;
     },
-    meal,
+    meal: object,
     attendees: string[]
 ) => {
     if (!ObjectId.isValid(postId)) {

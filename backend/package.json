@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node server.ts"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +13,9 @@
   "dependencies": {
     "express": "^4.17.3",
     "mongodb": "^4.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.7.0"
   }
 }
