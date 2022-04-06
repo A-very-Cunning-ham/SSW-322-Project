@@ -24,6 +24,9 @@ export const createPost = async (
         zip: string;
     }
 ) => {
+    if (!ObjectId.isValid(hostId)) {
+        throw "Invalid ID";
+    }
     const postCollection = await posts();
     const newPost = {
         startTime: startTime,
