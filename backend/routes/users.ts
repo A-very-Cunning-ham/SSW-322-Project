@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 import * as users from "../services/users";
 
-router.post("/users", async (req, res) => {
+router.post("/users", async (req: any, res: any) => {
     try {
+        console.log("Registration hit!");
         const createdUser = await users.createUser(
             req.body.username,
             req.body.email,

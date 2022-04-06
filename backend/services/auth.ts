@@ -27,19 +27,19 @@ export const login = async (
         payload, 
         process.env.JWT_SECRET,
         {expiresIn: 86400},
-        (err, token) => {
+        (err: any, token: any) => {
             if (err) throw err;
             return "Bearer " + token;
         }
     )
 };
 
-export const verifyJWT = async (req, res, next) => {
+export const verifyJWT = async (req: any, res: any, next: any) => {
     const token = req.headers["x-access-token"]?.split(" ")[1];
     if (!token) {
         return res.json({isLoggedIn: false, message: "Incorrect Token Given"});
     }
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err: any, decoded: any) => {
         if (err) {
             return res.json({isLoggedIn: false, message: "Failed to authenticate"});
         }

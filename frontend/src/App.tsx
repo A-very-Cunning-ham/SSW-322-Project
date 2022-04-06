@@ -34,11 +34,11 @@ function App() {
       <Box height="100vh" display="flex" flexDirection="column">
         <BrowserRouter>
           <Routes>
-            <Route
+            {/* <Route
               path="/meals/:id"
               // TODO: pass props
               element={<Meal />} 
-            />
+            /> */}
 
             <Route
               path="/"
