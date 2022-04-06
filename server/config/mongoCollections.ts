@@ -1,11 +1,11 @@
 import { connectToDb } from "./mongoConnection";
 
 const getCollectionFn = (collection: string) => {
-    let _col = undefined;
+    let _col: any = undefined;
 
     return async () => {
         if (!_col) {
-            const db = await connectToDb();
+            const db: any = await connectToDb();
             _col = await db.collection(collection);
         }
 

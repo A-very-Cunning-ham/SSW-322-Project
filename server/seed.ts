@@ -10,7 +10,7 @@ const seedDB = async () => {
         let newPost1 = await postFuncs.createPost(
             new Date("2022-05-01"),
             new Date("2022-05-02"),
-            new ObjectId.toString(),
+            new ObjectId() as string,
             4,
             {
                 street: "123 Main St",
