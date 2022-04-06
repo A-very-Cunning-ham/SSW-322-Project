@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-import { constructorMethod as configRoutes } from "./routes";
+import { constructorMethod as configRoutes } from "./src/routes";
 
 configRoutes(app);
 

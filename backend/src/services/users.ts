@@ -5,14 +5,14 @@ const { ObjectId } = require("mongodb");
 export const createUser = async (
     username: string,
     email: string,
-    password: string,
+    password: string
 ) => {
     const userCollection = await users();
     const takenUsername = await userCollection.findOne({
-        "username": username,
+        username: username,
     });
     const takenEmail = await userCollection.findOne({
-        "email": email,
+        email: email,
     });
     if (takenUsername || takenEmail) {
         throw "Username or email already taken";
@@ -22,7 +22,7 @@ export const createUser = async (
         _id: ObjectId(),
         username: username,
         email: email,
-        password: hashedPassword
+        password: hashedPassword,
     };
     const insertInfo = await userCollection.insertOne(newUser);
     if (!insertInfo.acknowledged || !insertInfo.insertedId) {
