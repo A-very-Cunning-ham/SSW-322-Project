@@ -12,7 +12,10 @@ router.post("/", async (req: any, res: any) => {
         );
         res.json(createdUser);
     } catch (err) {
+        console.log(req.body)
+        console.log(err)
         res.status(500).json({ error: err });
+
     }
 });
 
