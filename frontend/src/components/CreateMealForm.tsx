@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
+import {Box} from "@mui/material";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -71,6 +72,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 <div>
                 <TextField 
                     placeholder='Meal Name'
+                    label="Meal Name"
                     name="mealName"
                     value={values.mealName}
                     onChange={handleChange}
@@ -79,6 +81,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 <div>
                 <TextField 
                     placeholder='Description'
+                    label="Description"
                     name="description"
                     value={values.description}
                     onChange={handleChange}
@@ -87,6 +90,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 <div>
                 <TextField 
                     placeholder='Address'
+                    label="Address"
                     name="address"
                     value={values.address}
                     onChange={handleChange}
@@ -95,6 +99,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 <div>
                 <TextField 
                     placeholder='Capacity'
+                    label="Capacity"
                     name="capacity"
                     value={values.capacity}
                     onChange={handleChange}
@@ -102,6 +107,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 />
                 <TextField 
                     placeholder='Price'
+                    label="Price"
                     name="price"
                     value={values.price}
                     onChange={handleChange}
@@ -132,6 +138,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 <div>
                 <TextField 
                     placeholder='Start Time'
+                    label="Start Time"
                     name="startTime"
                     value={values.startTime}
                     onChange={handleChange}
@@ -146,6 +153,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 </Select>
                 <TextField 
                     placeholder='End Time'
+                    label="End Time"
                     name="endTime"
                     value={values.endTime}
                     onChange={handleChange}
@@ -159,16 +167,20 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     <MenuItem value={'PM'}>PM</MenuItem>
                 </Select></div>
                 <div>
-                <Button
-                    variant="contained"
-                    component="label"
-                    >
-                    Upload Image
-                    <input
-                        type="file"
-                        hidden
-                    />
-                </Button>
+                <Box sx={{
+                    padding: '10px'
+                }}>
+                    <Button
+                        variant="contained"
+                        component="label"
+                        >
+                        Upload Image
+                        <input
+                            type="file"
+                            hidden
+                        />
+                    </Button>
+                </Box>
                 </div>
                 
                 <Button type="submit">Save Changes</Button>
