@@ -1,7 +1,7 @@
 import React, {ReactElement, FC} from "react";
 import {Box, Typography} from "@mui/material";
 
-const ViewMeal: FC<any> = (): ReactElement => {
+const ViewPost: FC<any> = (): ReactElement => {
     return (
         <Box sx={{
             flexGrow: 1,
@@ -10,9 +10,9 @@ const ViewMeal: FC<any> = (): ReactElement => {
             justifyContent: 'center',
             alignItems: 'center'
         }}>
-            <Typography variant="h3">ViewMeal</Typography>
+            <Typography variant="h3">ViewPost</Typography>
         </Box>
     );
 };
 
-export default ViewMeal;
+export default ViewPost;
