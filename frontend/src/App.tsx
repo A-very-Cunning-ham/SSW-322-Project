@@ -61,7 +61,7 @@ function App() {
               element={<Login />}
             />
             <Route
-              path="/viewpost"
+              path="/viewpost/:id"
               element={<ViewPost />}
             />
 
