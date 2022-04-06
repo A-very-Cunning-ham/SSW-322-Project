@@ -14,7 +14,7 @@ export const getPostById = async (postId: string) => {
 export const createPost = async (
     startTime: Date,
     endTime: Date,
-    hostId: string,
+    // hostId: string,
     capacity: number,
     address: {
         street: string;
@@ -28,12 +28,12 @@ export const createPost = async (
     const newPost = {
         startTime: startTime,
         endTime: endTime,
-        hostId: ObjectId(hostId),
+        // hostId: ObjectId(hostId),
         capacity: capacity,
         address: address,
         meal: null,
         attendees: [],
-        current: startTime > new Date(), //unsure if this comparison actually works, there's another datetime library called moment.js that might be worth checking out if we have issues.
+        // current: startTime > new Date(), //unsure if this comparison actually works, there's another datetime library called moment.js that might be worth checking out if we have issues.
     };
     const insertInfo = await postCollection.insertOne(newPost);
     if (!insertInfo.acknowledged || !insertInfo.insertedId) {
@@ -93,7 +93,7 @@ export const updatePost = async (
                 address: address,
                 meal: meal,
                 attendees: attendees,
-                current: startTime > new Date(),
+                // current: startTime > new Date(),
             },
         }
     );
@@ -101,16 +101,16 @@ export const updatePost = async (
     return await getPostById(postId);
 };
 
-export const getPostsByHostId = async (hostId: string) => {
-    if (!ObjectId.isValid(hostId)) {
-        throw "Invalid ID";
-    }
-    const postCollection = await posts();
-    const foundPosts = await postCollection
-        .find({
-            hostId: ObjectId(hostId),
-        })
-        .toArray();
-    if (foundPosts.length === 0) throw "No posts found";
-    return foundPosts;
-};
+// export const getPostsByHostId = async (hostId: string) => {
+//     if (!ObjectId.isValid(hostId)) {
+//         throw "Invalid ID";
+//     }
+//     const postCollection = await posts();
+//     const foundPosts = await postCollection
+//         .find({
+//             hostId: ObjectId(hostId),
+//         })
+//         .toArray();
+//     if (foundPosts.length === 0) throw "No posts found";
+//     return foundPosts;
+// };
