@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 import * as meals from "../services/meals";
 
-router.get("/:id", async (req: any, res: any) => {
+router.route("/:id").get(async (req: any, res: any) => {
     try {
         const meal = await meals.getMealById(req.params.id);
         res.json(meal);
@@ -11,10 +11,11 @@ router.get("/:id", async (req: any, res: any) => {
     }
 });
 
-router.post("/:id", async (req: any, res: any) => {
+router.route("/:id").post(async (req: any, res: any) => {
     try {
         const createdMeal = await meals.createMeal(
             req.body.title,
+            req.body.course,
             req.body.price,
             req.body.description,
             req.body.filters,
@@ -26,15 +27,9 @@ router.post("/:id", async (req: any, res: any) => {
     }
 });
 
-router.put("/:id", async (req: any, res: any) => {
+router.route("/:id").put(async (req: any, res: any) => {
     try {
-        const updatedMeal = await meals.updateMeal(
-            req.params.id,
-            req.body.title,
-            req.body.price,
-            req.body.description,
-            req.body.filters
-        );
+        const updatedMeal = await meals.updateMeals(req.body.mealArray);
         res.json(updatedMeal);
     } catch (err) {
         res.status(500).json({ error: err });

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 import * as users from "../services/users";
 
-router.post("/", async (req: any, res: any) => {
+router.route("/").post(async (req: any, res: any) => {
     try {
         console.log("Registration hit!");
         const createdUser = await users.createUser(
@@ -12,10 +12,9 @@ router.post("/", async (req: any, res: any) => {
         );
         res.json(createdUser);
     } catch (err) {
-        console.log(req.body)
-        console.log(err)
+        console.log(req.body);
+        console.log(err);
         res.status(500).json({ error: err });
-
     }
 });
 
