@@ -45,17 +45,17 @@ const CreateMeal: FC<any> = (): ReactElement => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        fetch("/api/meals", {
+                        fetch(`/api/meals/${data}`, {
                             method: "POST",
                             headers: {
                                 "Content-type": "application/json"
                             },
                             body: JSON.stringify({
                                 title: mealName,
+                                course: courses,
                                 price: price,
                                 description: description,
                                 filters: tagNames,
-                                postId: data._id.toString()
                             })
                         })
                     });

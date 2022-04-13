@@ -62,7 +62,7 @@ function App() {
             />
             <Route
               path="/viewpost/:id"
-              element={<ViewPost />}
+              element={<Meal/>}
             />
 
           </Routes>
