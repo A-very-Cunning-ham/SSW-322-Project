@@ -1,6 +1,6 @@
 import { Button, TextField } from '@mui/material/';
 import * as React from 'react';
-import {Formik, Form, validateYupSchema} from 'formik';
+import {Formik, Form} from 'formik';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -24,7 +24,7 @@ interface Values {
     mealName: string
     description: string
     address: string
-    price: string
+    price: number
     capacity: number
     startTime: string
     endTime: string
@@ -35,10 +35,14 @@ interface Props {
     onSubmit: (values: Values) => void;
 }
 
+const hours = ['00','01','02','03','04','05','06','07','08','09','10','11','12']
+const mins = ['00','15','30','45']
+
 const dietaryRestrictionTags = [
     'Vegan',
     'Vegetarian',
     'Kosher',
+    'Halal',
     'Low Carb',
     'Keto',
     'Dairy-Free',
@@ -60,7 +64,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
 
     return (
         <Formik 
-            initialValues={{ mealName:'', description:'',address:'',price:'',capacity:0,startTime:'',endTime:'', tagNames:['']}} 
+            initialValues={{ mealName:'', description:'',address:'',price:0,capacity:0,startTime:'',endTime:'', tagNames:['']}} 
             onSubmit={values => {
                 //do something
                 values['tagNames'] = tagNames
