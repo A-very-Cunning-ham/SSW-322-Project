@@ -10,6 +10,8 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import InputAdornment from '@mui/material/InputAdornment';
 import Checkbox from '@mui/material/Checkbox';
 import {Box} from "@mui/material";
+import Link from '@mui/material/Link';
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -29,8 +31,8 @@ interface Values {
     capacity: number
     startTime: string
     endTime: string
-    tagNames: string[]
     courses: string
+    tagNames: string[]
 }
 
 interface Props {
@@ -129,8 +131,9 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 <TextField 
                     required
                     label="Main Course"
+                    placeholder='Main Course'
                     name="Main Course"
-                    value={values.courses}
+                    defaultValue={values.courses}
                     onChange={handleChange}
                     onBlur={handleBlur} 
                 />
@@ -272,7 +275,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     // onBlur={handleBlur} 
                 />
                 </div>        
-                <Button sx={{ m:2 }} type="submit">Create Post</Button>
+                <Button sx={{ m:2 }} type="submit"><Link href='/' color="inherit" underline="none">Create Post</Link></Button>
             </Form>
             )}
         </Formik>
