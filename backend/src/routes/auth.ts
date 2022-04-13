@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 import * as auth from "../services/auth";
 
-router.post("/", async (req: any, res: any) => {
+router.route("/").post(async (req: any, res: any) => {
     try {
         const token = await auth.login(
             req.body.username,
@@ -15,7 +15,8 @@ router.post("/", async (req: any, res: any) => {
     }
 });
 
-router.get("/verify", auth.verifyJWT, (req: any, res: any) => {
+router.route("/verify").get(auth.verifyJWT, (req: any, res: any) => {
+    //not sure how refactor works here with router.route instead of just router, if something breaks try switching this function back to router.get("/verify"), etc
     try {
         res.json({ isLoggedIn: true, username: req.user.username });
     } catch (err) {

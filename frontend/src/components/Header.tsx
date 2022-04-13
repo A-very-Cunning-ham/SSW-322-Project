@@ -1,6 +1,7 @@
 import React, { ReactElement, FC } from "react";
 import { AppBar, Box, Toolbar, IconButton, Typography, Button } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
+
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -36,6 +37,7 @@ const Header: FC<Props> = ({ title }): ReactElement => {
     setAnchorEl2(null);
   };
 
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -68,6 +70,7 @@ const Header: FC<Props> = ({ title }): ReactElement => {
             <MenuItem onClick={handleClose}><Link href='/createpost' color="inherit" underline="none">Create Post</Link></MenuItem>
             <MenuItem onClick={handleClose}><Link href='/viewmeal' color="inherit" underline="none">View Meal</Link></MenuItem>
           </Menu>
+
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
@@ -98,6 +101,7 @@ const Header: FC<Props> = ({ title }): ReactElement => {
                 </MenuItem>
               ))}
           </Menu>
+
         </Toolbar>
       </AppBar>
     </Box>

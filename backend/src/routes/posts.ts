@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 import * as posts from "../services/posts";
 
-router.get("/", async (req: any, res: any) => {
+router.route("/").get(async (req: any, res: any) => {
     try {
         const allPosts = await posts.getAllPosts();
         res.json(allPosts);
@@ -11,7 +11,7 @@ router.get("/", async (req: any, res: any) => {
     }
 });
 
-router.post("/", async (req: any, res: any) => {
+router.route("/").post(async (req: any, res: any) => {
     try {
         const newPost = await posts.createPost(
             req.body.startTime,
@@ -26,7 +26,7 @@ router.post("/", async (req: any, res: any) => {
     }
 });
 
-router.get("/:id", async (req: any, res: any) => {
+router.route("/:id").get(async (req: any, res: any) => {
     try {
         const post = await posts.getPostById(req.params.id);
         res.json(post);
@@ -35,7 +35,7 @@ router.get("/:id", async (req: any, res: any) => {
     }
 });
 
-router.put("/:id", async (req: any, res: any) => {
+router.route("/:id").put(async (req: any, res: any) => {
     try {
         const updatedPost = await posts.updatePost(
             req.params.id,
@@ -53,7 +53,7 @@ router.put("/:id", async (req: any, res: any) => {
     }
 });
 
-router.patch("/:id", async (req: any, res: any) => {
+router.route("/:id").patch(async (req: any, res: any) => {
     try {
         const postWithAttendee = await posts.addAttendeeToPost(
             req.params.id,
