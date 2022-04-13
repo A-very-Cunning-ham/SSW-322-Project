@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import InputAdornment from '@mui/material/InputAdornment';
 import Checkbox from '@mui/material/Checkbox';
 import {Box} from "@mui/material";
 
@@ -29,13 +30,14 @@ interface Values {
     startTime: string
     endTime: string
     tagNames: string[]
+    courses: string
 }
 
 interface Props {
     onSubmit: (values: Values) => void;
 }
 
-const hours = ['00','01','02','03','04','05','06','07','08','09','10','11','12']
+const hours = ['00','01','02','03','04','05','06','07','08','09','10','11','12']    //could simplify start/end time by making it a dropdown
 const mins = ['00','15','30','45']
 
 const dietaryRestrictionTags = [
@@ -64,26 +66,41 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
 
     return (
         <Formik 
-            initialValues={{ mealName:'', description:'',address:'',price:0,capacity:0,startTime:'',endTime:'', tagNames:['']}} 
+            initialValues={{ mealName:'', description:'',address:'',price:0,capacity:0,startTime:'',endTime:'', tagNames:[''],courses:''}} 
             onSubmit={values => {
-                //do something
                 values['tagNames'] = tagNames
+                
                 onSubmit(values);
             }}
             >
             {({values, handleChange, handleBlur}) => (
             <Form>
                 <div>
-                <TextField 
+                <Box>
+                    <Button
+                        variant="contained"
+                        component="label"
+                        >
+                        Upload Image
+                        <input
+                            type="file"
+                            hidden
+                        />
+                    </Button>
+                </Box>
+                </div>
+                <TextField sx={{ m:2 }}
+                    required
                     placeholder='Meal Name'
                     label="Meal Name"
                     name="mealName"
                     value={values.mealName}
                     onChange={handleChange}
                     onBlur={handleBlur} 
-                /></div>
+                />
                 <div>
-                <TextField 
+                <TextField
+                    required
                     placeholder='Description'
                     label="Description"
                     name="description"
@@ -92,7 +109,8 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     onBlur={handleBlur} 
                 /></div>
                 <div>
-                <TextField 
+                <TextField sx={{ m:2 }}
+                    required
                     placeholder='Address'
                     label="Address"
                     name="address"
@@ -101,24 +119,31 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     onBlur={handleBlur} 
                 /></div>
                 <div>
+                <Box>
                 <TextField 
-                    placeholder='Capacity'
-                    label="Capacity"
-                    name="capacity"
-                    value={values.capacity}
+                    label="Appetizer"
+                    name="Appetizer"
                     onChange={handleChange}
                     onBlur={handleBlur} 
                 />
                 <TextField 
-                    placeholder='Price'
-                    label="Price"
-                    name="price"
-                    value={values.price}
+                    required
+                    label="Main Course"
+                    name="Main Course"
+                    value={values.courses}
                     onChange={handleChange}
                     onBlur={handleBlur} 
-                /></div>
+                />
+                <TextField 
+                    label="Dessert"
+                    name="Dessert"
+                    onChange={handleChange}
+                    onBlur={handleBlur} 
+                />
+                </Box>
+                </div>
                 <div>
-                <FormControl sx={{ m: 1, width: 300 }}>
+                <FormControl sx={{ m: 2, width: 250 }}>
                 <InputLabel id="diet-restrictions-label">Dietary Restrictions</InputLabel>
                 <Select
                     labelId="diet-restrictions-label"
@@ -140,7 +165,65 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 </FormControl>
                 </div>
                 <div>
+                <Box>
                 <TextField 
+                    placeholder='Capacity'
+                    label="Capacity"
+                    name="capacity"
+                    style = {{width: 100}}
+                    value={values.capacity}
+                    onChange={handleChange}
+                    onBlur={handleBlur} 
+                />
+                <TextField
+                    required
+                    placeholder='Price'
+                    label="Price"
+                    name="price"
+                    style = {{width: 100}}
+                    value={values.price}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">$</InputAdornment>
+                    }}
+                    onChange={handleChange}
+                    onBlur={handleBlur} 
+                /></Box></div>
+                
+                <div>
+                <Box sx={{m:2}}>
+                <TextField 
+                    required
+                    label="Month"
+                    name="Month"
+                    style = {{width: 100}}
+                    //value={values.Month}
+                    // onChange={handleChange}
+                    // onBlur={handleBlur} 
+                />
+                <TextField
+                    required
+                    label="Day"
+                    name="Day"
+                    style = {{width: 100}}
+                    //value={values.Month}
+                    // onChange={handleChange}
+                    // onBlur={handleBlur} 
+                />
+                <TextField
+                    required
+                    label="Year"
+                    name="Year"
+                    style = {{width: 100}}
+                    //value={values.Month}
+                    // onChange={handleChange}
+                    // onBlur={handleBlur} 
+                />
+                </Box>
+                </div>
+                <div>
+                <Box sx={{m:2}}>
+                <TextField
+                    required
                     placeholder='Start Time'
                     label="Start Time"
                     name="startTime"
@@ -148,14 +231,23 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     onChange={handleChange}
                     onBlur={handleBlur} 
                 />
+                {/* <InputLabel>Start Hour</InputLabel>
+                    <Select onChange={handleChange}>
+                        {hours.map((hour) => (
+                        <MenuItem key={hour} value={hour}>
+                        {hour}
+                        </MenuItem>))}
+                    </Select> */}
                 <Select
+                    required
                     onChange={handleChange}
                     defaultValue = "AM"
                 >
                     <MenuItem value={'AM'}>AM</MenuItem>
                     <MenuItem value={'PM'}>PM</MenuItem>
                 </Select>
-                <TextField 
+                <TextField
+                    required
                     placeholder='End Time'
                     label="End Time"
                     name="endTime"
@@ -164,30 +256,23 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     onBlur={handleBlur} 
                 />
                 <Select
-                   defaultValue = "AM"
-                   onChange={handleChange}
-                >
+                    required
+                    defaultValue = "AM"
+                    onChange={handleChange}
+                    >
                     <MenuItem value={'AM'}>AM</MenuItem>
                     <MenuItem value={'PM'}>PM</MenuItem>
-                </Select></div>
+                </Select></Box></div>
                 <div>
-                <Box sx={{
-                    padding: '10px'
-                }}>
-                    <Button
-                        variant="contained"
-                        component="label"
-                        >
-                        Upload Image
-                        <input
-                            type="file"
-                            hidden
-                        />
-                    </Button>
-                </Box>
-                </div>
-                
-                <Button type="submit">Save Changes</Button>
+                <TextField 
+                    label="Additional Comments"
+                    name="Additional Comments"
+                    //value={values.Month}
+                    // onChange={handleChange}
+                    // onBlur={handleBlur} 
+                />
+                </div>        
+                <Button sx={{ m:2 }} type="submit">Create Post</Button>
             </Form>
             )}
         </Formik>
