@@ -1,14 +1,9 @@
-export { createMeal, getMealById, updateMeal } from "./meals";
+export { createMeal, getMealById, updateMeals } from "./meals";
 export {
     createPost,
     getPostById,
     addAttendeeToPost,
     updatePost,
 } from "./posts";
-export {
-    createUser
-} from "./users";
-export {
-    login,
-    verifyJWT
-} from "./auth";
+export { createUser } from "./users";
+export { login, verifyJWT } from "./auth";

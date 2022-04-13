@@ -13,7 +13,7 @@ router.route("/:id").get(async (req: any, res: any) => {
 
 router.route("/:id").post(async (req: any, res: any) => {
     try {
-        const createdMeal = await meals.createMeal(
+        const newMeal = await meals.createMeal(
             req.body.title,
             req.body.course,
             req.body.price,
@@ -21,7 +21,7 @@ router.route("/:id").post(async (req: any, res: any) => {
             req.body.filters,
             req.params.id
         );
-        res.json(createdMeal);
+        res.json(newMeal);
     } catch (err) {
         res.status(500).json({ error: err });
     }

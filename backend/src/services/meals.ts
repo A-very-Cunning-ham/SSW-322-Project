@@ -25,6 +25,7 @@ export const createMeal = async (
     if (updateInfo.modifiedCount === 0) {
         throw "Could not create meal";
     }
+    return newMeal;
 };
 
 export const getMealById = async (mealId: string) => {

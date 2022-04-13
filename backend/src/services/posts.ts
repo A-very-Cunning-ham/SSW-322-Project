@@ -31,7 +31,7 @@ export const createPost = async (
         // hostId: ObjectId(hostId),
         capacity: capacity,
         address: address,
-        meal: null,
+        meals: [],
         attendees: [],
         // current: startTime > new Date(), //unsure if this comparison actually works, there's another datetime library called moment.js that might be worth checking out if we have issues.
     };
@@ -75,7 +75,7 @@ export const updatePost = async (
         country: string;
         zip: string;
     },
-    meal: object,
+    meals: object[],
     attendees: string[]
 ) => {
     if (!ObjectId.isValid(postId)) {
@@ -91,7 +91,7 @@ export const updatePost = async (
                 hostId: hostId,
                 capacity: capacity,
                 address: address,
-                meal: meal,
+                meals: meals,
                 attendees: attendees,
                 // current: startTime > new Date(),
             },
