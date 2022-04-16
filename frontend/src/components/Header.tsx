@@ -68,7 +68,7 @@ const Header: FC<Props> = ({ title }): ReactElement => {
             <MenuItem onClick={handleClose}><Link href='/login' color="inherit" underline="none">Login</Link></MenuItem>
             <MenuItem onClick={handleClose}><Link href='/register' color="inherit" underline="none">Register</Link></MenuItem>
             <MenuItem onClick={handleClose}><Link href='/createpost' color="inherit" underline="none">Create Post</Link></MenuItem>
-            <MenuItem onClick={handleClose}><Link href='/viewmeal/1' color="inherit" underline="none">View Meal</Link></MenuItem>
+            <MenuItem onClick={handleClose}><Link href='/viewpost/1' color="inherit" underline="none">View Meal</Link></MenuItem>
           </Menu>
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
