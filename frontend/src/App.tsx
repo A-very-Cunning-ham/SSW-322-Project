@@ -8,7 +8,7 @@ import Meal from "./pages/Meal";
 import CreatePost from "./pages/CreatePost";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import ViewPost from "./pages/ViewPostDemo";
+import ViewPostDemo from "./pages/ViewPostDemo";
 import { CreateNewFolderSharp } from "@mui/icons-material";
 
 function App() {
@@ -65,8 +65,8 @@ function App() {
               element={<Meal />}
             />
             <Route
-              path="/testview"
-              element={<ViewPost />}
+              path="/viewpostdemo"
+              element={<ViewPostDemo />}
             />
           </Routes>
         </BrowserRouter>

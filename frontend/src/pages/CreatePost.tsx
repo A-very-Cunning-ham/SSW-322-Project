@@ -4,7 +4,7 @@ import { CreateMealForm } from '../components/CreateMealForm';
 //const {ObjectId} = require('mongodb');
 
 const CreateMeal: FC<any> = (): ReactElement => {
-    return (        
+    return (   
         <div style={{textAlign: "center" }}>
             <div style={{textAlign: "center" }}>
                 <Box sx={{

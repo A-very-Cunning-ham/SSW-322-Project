@@ -1,7 +1,7 @@
 import React, {ReactElement, FC} from "react";
 import {Box, Button, Typography, Grid, Card, CardContent, Chip} from "@mui/material";
 
-const ViewPost: FC<any> = (): ReactElement => {
+const ViewPostDemo: FC<any> = (): ReactElement => {
     return (
         <Box sx={{ m:3 }}>
         <Grid container spacing={3}>
@@ -45,4 +45,4 @@ const ViewPost: FC<any> = (): ReactElement => {
     );
 };
 
-export default ViewPost;
+export default ViewPostDemo;
