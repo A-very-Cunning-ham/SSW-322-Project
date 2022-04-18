@@ -275,7 +275,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     // onBlur={handleBlur} 
                 />
                 </div>        
-                <Button sx={{ m:2 }} type="submit"><Link href='/' color="inherit" underline="none">Create Post</Link></Button>
+                <Button sx={{ m:2 }} type="submit">Create Post</Button>
             </Form>
             )}
         </Formik>
