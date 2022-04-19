@@ -18,8 +18,8 @@ const ViewPostDemo: FC<any> = (): ReactElement => {
                 <Card sx={{ minWidth: 275 }}>
                     <CardContent>
                         {/* Use Box */}
-                        <Grid> 
-                        <Grid item xs="auto">
+                        <Grid container> 
+                        <Grid item xs>
                         <Typography variant="h5" component="div">
                             $56.50
                         </Typography>
@@ -27,15 +27,16 @@ const ViewPostDemo: FC<any> = (): ReactElement => {
                             1 Castle Pt
                         </Typography>
                         <Box component="img" sx={{ maxWidth: "50%" }} src="https://www.400capital.com/wp-content/uploads/2014/02/map-placeholder.png" alt="map placeholder image" />
-                        <br />
-                        {/* {postData.meals[0].filters.map(item => <Chip label={item} color="success" />)} */}
-                        <Chip label='Vegan' color="primary"/>
                         </Grid>
-                        {/* <Grid item xs={6}>
+                        <Grid item xs>
                             <Typography variant="h5" component="div">
                                 Date
                             </Typography>
-                        </Grid> */}
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                8:00 AM - 10:00 AM
+                            </Typography>
+                            <Chip label='Vegan' color="primary"/>
+                        </Grid>
                         </Grid>
                     </CardContent>
                 </Card>
