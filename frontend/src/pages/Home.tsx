@@ -102,8 +102,9 @@ const Home: FC<any> = (): ReactElement => {
     
     
     return (
-        <Box sx={{ m:3 }}>
-            <Stack spacing={3} alignItems="center">
+        <Box sx={{ backgroundColor:'whitesmoke'}}>
+        <Box sx={{ m:6 }}>
+            <Stack spacing={4} alignItems="center">
                 <Box sx={{
                     flexGrow: 1,
                     backgroundColor: 'gainsboro',
@@ -122,13 +123,14 @@ const Home: FC<any> = (): ReactElement => {
                     </Search>
                 </Box>
                 <Typography variant="h3">Home</Typography>
-
+                <MealSummaryRow title='Macaroni and Cheese' address='1 Castle Pt' startTime='8:00' endTime='9:00' capacity={5} price={57.80} filters={['Vegan','Allergy-Free']}/>
                 {postData.allPosts.map((p)=>{
                 return (
                 <MealSummaryRow title={p.meals[0].title} address={p.address} startTime={p.startTime} endTime={p.endTime} capacity={p.capacity} price={p.meals[0].price} filters={p.meals[0].filters}/>
                 );})}
                 {/* <Pagination count={5} /> */}
             </Stack>
+        </Box>
         </Box>
     );
 };
