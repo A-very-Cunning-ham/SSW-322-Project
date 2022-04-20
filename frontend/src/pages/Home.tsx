@@ -7,6 +7,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
+import MealSummaryRow from '../components/MealSummaryRow';
 
 interface Meal{
     _id: string;
@@ -97,7 +98,7 @@ const Home: FC<any> = (): ReactElement => {
             // console.log(allPosts.data);
         }
         fetchData();
-    }, [id])
+    }, [])
     
     
     return (
@@ -121,106 +122,12 @@ const Home: FC<any> = (): ReactElement => {
                     </Search>
                 </Box>
                 <Typography variant="h3">Home</Typography>
-                <Card>
-                    <CardContent>
-                        <Grid container spacing={2}>
-                            <Grid item xs={2}>
-                            <Box component="img" sx={{ maxWidth: "100%" }} src="https://www.lactaid.com/sites/lactaid_us/files/recipe-images/mac-and-cheese-website.png" />
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant="h4" gutterBottom>Meal Name</Typography>
-                                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                    1 Castle Pt
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant="h4" gutterBottom>Start Time</Typography>
-                                <Typography variant="h5" gutterBottom>08:00 AM</Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant="h4" gutterBottom>End Time</Typography>
-                                <Typography variant="h5" gutterBottom>10:00 AM</Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant="h4" gutterBottom>Dietary Tags</Typography>
-                                <Chip label='Vegan' color="primary"/>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Box sx={{ textAlign: 'center' }}>
-                                    <Typography variant="h4" component="div" gutterBottom> $56.50 </Typography>
-                                    <Button variant="contained">View Meal</Button>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardContent>
-                        <Grid container spacing={2}>
-                            <Grid item xs={2}>
-                            <Box component="img" sx={{ maxWidth: "100%" }} src="https://www.lactaid.com/sites/lactaid_us/files/recipe-images/mac-and-cheese-website.png" />
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant="h4" gutterBottom>Meal Name</Typography>
-                                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                    1 Castle Pt
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant="h4" gutterBottom>Start Time</Typography>
-                                <Typography variant="h5" gutterBottom>09:00 AM</Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant="h4" gutterBottom>End Time</Typography>
-                                <Typography variant="h5" gutterBottom>11:00 AM</Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant="h4" gutterBottom>Dietary Tags</Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Box sx={{ textAlign: 'center' }}>
-                                    <Typography variant="h4" component="div" gutterBottom> $55.00 </Typography>
-                                    <Button variant="contained">View Meal</Button>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardContent>
-                        <Grid container spacing={2}>
-                            <Grid item xs={2}>
-                            <Box component="img" sx={{ maxWidth: "100%" }} src="https://www.lactaid.com/sites/lactaid_us/files/recipe-images/mac-and-cheese-website.png" />
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant="h4" gutterBottom>Meal Name</Typography>
-                                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                    1 Castle Pt
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant="h4" gutterBottom>Start Time</Typography>
-                                <Typography variant="h5" gutterBottom>01:00 PM</Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant="h4" gutterBottom>End Time</Typography>
-                                <Typography variant="h5" gutterBottom>02:00 PM</Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant="h4" gutterBottom>Dietary Tags</Typography>
-                                <Chip label='Kosher' color="primary"/>
-                                <Chip label='Vegetarian' color="primary"/>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Box sx={{ textAlign: 'center' }}>
-                                    <Typography variant="h4" component="div" gutterBottom> $20.50 </Typography>
-                                    <Button variant="contained">View Meal</Button>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </CardContent>
-                </Card>
-                <Pagination count={5} />
+
+                {postData.allPosts.map((p)=>{
+                return (
+                <MealSummaryRow title={p.meals[0].title} address={p.address} startTime={p.startTime} endTime={p.endTime} capacity={p.capacity} price={p.meals[0].price} filters={p.meals[0].filters}/>
+                );})}
+                {/* <Pagination count={5} /> */}
             </Stack>
         </Box>
     );
