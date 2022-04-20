@@ -25,6 +25,7 @@ export const createMeal = async (
     if (updateInfo.modifiedCount === 0) {
         throw "Could not create meal";
     }
+    postCollection.createIndex({ "meals.title": "text" });
     return newMeal;
 };
 
@@ -63,4 +64,20 @@ export const updateMeals = async (
         );
         if (updateInfo.modifiedCount === 0) throw "could not update meal";
     }
+};
+
+export const searchByMealTitle = async (mealTitle: string) => {
+    const postCollection = await posts();
+    const foundPosts = await postCollection
+        .find({ $text: { $search: mealTitle } })
+        .toArray();
+    return foundPosts;
+};
+
+export const searchByMealFilters = async (filters: string[]) => {
+    const postCollection = await posts();
+    const foundPosts = await postCollection
+        .find("meals.filters", { $in: filters })
+        .toArray();
+    return foundPosts;
 };
