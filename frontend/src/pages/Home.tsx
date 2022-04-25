@@ -106,8 +106,9 @@ const Home: FC<any> = (): ReactElement => {
 
 
     return (
-        <Box sx={{ m: 3 }}>
-            <Stack spacing={3} alignItems="center">
+        <Box sx={{ backgroundColor:'whitesmoke'}}>
+        <Box sx={{ m:6 }}>
+            <Stack spacing={4} alignItems="center">
                 <Box sx={{
                     flexGrow: 1,
                     backgroundColor: 'gainsboro',
@@ -145,6 +146,7 @@ const Home: FC<any> = (): ReactElement => {
 
                 {/* <Pagination count={5} /> */}
             </Stack>
+        </Box>
         </Box>
     );
 };

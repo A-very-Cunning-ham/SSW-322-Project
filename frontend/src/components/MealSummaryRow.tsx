@@ -1,5 +1,6 @@
 import React, { ReactElement, FC} from "react";
 import {Box, Button, Typography, Grid, Card, CardContent, Chip} from "@mui/material";
+import Stack from '@mui/material/Stack';
 
 interface Props {
     title: String
@@ -28,24 +29,27 @@ return (
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">{address}</Typography>
                 </Grid>
                 <Grid item xs={2}>
-                    <Typography variant="h5" gutterBottom>Meal Time</Typography>
-                    <Typography variant="h6" gutterBottom>{startTime} - {endTime}</Typography>
+                    <Typography variant="h5" gutterBottom>Date</Typography>
+                    <Typography variant="h6" color="text.secondary" gutterBottom>4/28/2022</Typography>
+                    <Typography variant="h6" color="text.secondary" gutterBottom>{startTime} AM - {endTime} AM</Typography>
                 </Grid>
                 <Grid item xs={2}>
                     <Typography variant="h5" gutterBottom>Capacity</Typography>
-                    <Typography variant="h6" gutterBottom>{capacity}</Typography>
+                    <Typography variant="h6" color="text.secondary" gutterBottom>{capacity}</Typography>
                 </Grid>
                 <Grid item xs={2}>
                     <Typography variant="h5" gutterBottom>Dietary Tags</Typography>
+                    <Stack direction="row" spacing={1}>
                     {filters.map((item, i) => (
                         <React.Fragment key={i}>
                             <Chip label={item} color="primary" />
                         </React.Fragment>
                         ))}
+                    </Stack>
                 </Grid>
                 <Grid item xs={2}>
                     <Box sx={{ textAlign: "center" }}>
-                        <Typography variant="h5" component="div" gutterBottom>{price}</Typography>
+                        <Typography variant="h3" component="div" gutterBottom>${price}</Typography>
                         <Button variant="contained">View Meal</Button>
                     </Box>
                 </Grid>
