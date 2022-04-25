@@ -1,5 +1,5 @@
 import React, { ReactElement, FC, useState, useEffect } from "react";
-import {Box, Button, Typography, Grid, Card, CardContent, Chip} from "@mui/material";
+import { Box, Button, Typography, Grid, Card, CardContent, Chip } from "@mui/material";
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import axios from "axios";
 import MealSummaryRow from '../components/MealSummaryRow';
 
-interface Meal{
+interface Meal {
     _id: string;
     title: string;
     course: string;
@@ -19,6 +19,7 @@ interface Meal{
 }
 
 interface PostType {
+    _id: string;
     startTime: string;
     endTime: string;
     capacity: number;
@@ -35,17 +36,17 @@ const Search = styled('div')(({ theme }) => ({
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
+        backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
+        marginLeft: theme.spacing(1),
+        width: 'auto',
     },
-  }));
-  
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -53,56 +54,59 @@ const Search = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  }));
+}));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch',
-        '&:focus': {
-          width: '20ch',
+        padding: theme.spacing(1, 1, 1, 0),
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            width: '12ch',
+            '&:focus': {
+                width: '20ch',
+            },
         },
-      },
     },
-  }));
+}));
 
 const Home: FC<any> = (): ReactElement => {
-    let { id } = useParams();
     const [postData, setPostData] = useState<Posts>({
         allPosts: [
-        {   startTime: '',
-            endTime: '',
-            capacity: 0,
-            address: '',
-            meals: [
-                {    _id: '',
-                    title: '',
-                    course: '',
-                    price: 0,
-                    description: '',
-                    filters: ['']}
-            ]}
+            {
+                _id: '',
+                startTime: '',
+                endTime: '',
+                capacity: 0,
+                address: '',
+                meals: [
+                    {
+                        _id: '',
+                        title: '',
+                        course: '',
+                        price: 0,
+                        description: '',
+                        filters: ['']
+                    }
+                ]
+            }
         ]
     });
-    
+
     useEffect(() => {
-        async function fetchData(){
+        async function fetchData() {
             const allPosts = await axios.get(`/api/posts/`);
-            setPostData(allPosts.data);
-            // console.log(allPosts.data);
+            setPostData({ allPosts: allPosts.data });
         }
         fetchData();
     }, [])
-    
-    
+
+
     return (
-        <Box sx={{ m:3 }}>
+        <Box sx={{ m: 3 }}>
             <Stack spacing={3} alignItems="center">
                 <Box sx={{
                     flexGrow: 1,
@@ -123,10 +127,22 @@ const Home: FC<any> = (): ReactElement => {
                 </Box>
                 <Typography variant="h3">Home</Typography>
 
-                {postData.allPosts.map((p)=>{
-                return (
-                <MealSummaryRow title={p.meals[0].title} address={p.address} startTime={p.startTime} endTime={p.endTime} capacity={p.capacity} price={p.meals[0].price} filters={p.meals[0].filters}/>
-                );})}
+                <div>
+                    {
+                        postData.allPosts?.map((p) => (
+
+                            <React.Fragment key={p._id}>
+                                <MealSummaryRow title={p.meals[0].title}
+                                    address={p.address} startTime={p.startTime}
+                                    endTime={p.endTime} capacity={p.capacity}
+                                    price={p.meals[0].price} filters={p.meals[0].filters} />
+                            </React.Fragment>
+                        ))
+                    }
+
+                </div>
+
+
                 {/* <Pagination count={5} /> */}
             </Stack>
         </Box>

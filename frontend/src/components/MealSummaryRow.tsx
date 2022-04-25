@@ -37,8 +37,10 @@ return (
                 </Grid>
                 <Grid item xs={2}>
                     <Typography variant="h5" gutterBottom>Dietary Tags</Typography>
-                    {filters.map((item) => (
-                        <Chip label={item} color="primary" />
+                    {filters.map((item, i) => (
+                        <React.Fragment key={i}>
+                            <Chip label={item} color="primary" />
+                        </React.Fragment>
                         ))}
                 </Grid>
                 <Grid item xs={2}>
