@@ -109,7 +109,7 @@ const Home: FC<any> = (): ReactElement => {
                     </Search>
                 </Box>
                 <Typography variant="h3">Home</Typography>
-
+                <MealSummaryRow id="" title="Example Meal" address="1 Castle Pt" startTime="8:00" endTime="9:00" capacity={4} price={45.60} filters={["Vegan", "Dairy-Free"]} />
                 <div>
                     {
                         postData.allPosts?.map((p) => (

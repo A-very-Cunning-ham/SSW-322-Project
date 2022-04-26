@@ -66,15 +66,14 @@ const Header: FC<Props> = ({ title }): ReactElement => {
               'aria-labelledby': 'basic-button',
             }}
           >
-            <MenuItem component={Link} to={'/'} onClick={handleClose}>Home</MenuItem>
+            {/* <MenuItem component={Link} to={'/'} onClick={handleClose}>Home</MenuItem> */}
             <MenuItem component={Link} to={'/login'} onClick={handleClose}>Login</MenuItem>
             <MenuItem component={Link} to={'/register'} onClick={handleClose}>Register</MenuItem>
             <MenuItem component={Link} to={'/createpost'} onClick={handleClose}>Create Post</MenuItem>
             <MenuItem component={Link} to={'/viewpostdemo'} onClick={handleClose}>View Meal</MenuItem>
           </Menu>
-          
-          {/* TODO: Fix underline */}
-          <Typography variant="h6" component={Link} to={'/'} sx={{ flexGrow: 1 }} color="textPrimary">
+
+          <Typography variant="h6" component={Link} to={'/'} style={{ textDecoration: 'none' }} sx={{ flexGrow: 1 }} color="textPrimary">
             {title}
           </Typography>
           <IconButton

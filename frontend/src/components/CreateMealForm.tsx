@@ -10,6 +10,8 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import InputAdornment from '@mui/material/InputAdornment';
 import Checkbox from '@mui/material/Checkbox';
 import {Box} from "@mui/material";
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 import Link from '@mui/material/Link';
 
 
@@ -29,8 +31,13 @@ interface Values {
     address: string
     price: number
     capacity: number
-    startTime: string
-    endTime: string
+    date: any
+    startHour: string
+    startMin: string
+    startPeriod: string
+    endHour: string
+    endMin: string
+    endPeriod: string
     courses: string
     tagNames: string[]
 }
@@ -65,32 +72,33 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
           typeof value === 'string' ? value.split(',') : value,
         );
       };
-
+    
     return (
+        <Box>
+        <Grid container spacing={2}>
+        <Grid item xs={4}></Grid>
+        <Grid item xs={4}>
         <Formik 
-            initialValues={{ mealName:'', description:'',address:'',price:0,capacity:0,startTime:'',endTime:'', tagNames:[''],courses:''}} 
+            initialValues={{ mealName:'', description:'',address:'',price:0,capacity:0,date:Date.now(),startHour:'',startMin:'',startPeriod:'AM',endHour:'',endMin:'',endPeriod:'AM',tagNames:[''],courses:''}} 
             onSubmit={values => {
                 values['tagNames'] = tagNames
-                
+                alert("Invitation Created!")
                 onSubmit(values);
             }}
             >
             {({values, handleChange, handleBlur}) => (
             <Form>
-                <div>
-                <Box>
-                    <Button
-                        variant="contained"
-                        component="label"
-                        >
-                        Upload Image
-                        <input
-                            type="file"
-                            hidden
-                        />
-                    </Button>
-                </Box>
-                </div>
+                <Stack alignItems="center" spacing={2}>
+                <Button
+                    variant="contained"
+                    component="label"
+                    >
+                    Upload Image
+                    <input
+                        type="file"
+                        hidden
+                    />
+                </Button>
                 <TextField sx={{ m:2 }}
                     required
                     placeholder='Meal Name'
@@ -100,7 +108,6 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     onChange={handleChange}
                     onBlur={handleBlur} 
                 />
-                <div>
                 <TextField
                     required
                     placeholder='Description'
@@ -109,8 +116,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     value={values.description}
                     onChange={handleChange}
                     onBlur={handleBlur} 
-                /></div>
-                <div>
+                />
                 <TextField sx={{ m:2 }}
                     required
                     placeholder='Address'
@@ -119,9 +125,8 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     value={values.address}
                     onChange={handleChange}
                     onBlur={handleBlur} 
-                /></div>
-                <div>
-                <Box>
+                />
+                <Stack direction="row" spacing={2}>
                 <TextField 
                     label="Appetizer"
                     name="Appetizer"
@@ -143,9 +148,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     onChange={handleChange}
                     onBlur={handleBlur} 
                 />
-                </Box>
-                </div>
-                <div>
+                </Stack>
                 <FormControl sx={{ m: 2, width: 250 }}>
                 <InputLabel id="diet-restrictions-label">Dietary Restrictions</InputLabel>
                 <Select
@@ -166,9 +169,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     ))}
                 </Select>
                 </FormControl>
-                </div>
-                <div>
-                <Box>
+                <Stack direction="row" spacing={2}>
                 <TextField 
                     placeholder='Capacity'
                     label="Capacity"
@@ -190,94 +191,98 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     }}
                     onChange={handleChange}
                     onBlur={handleBlur} 
-                /></Box></div>
-                
-                <div>
-                <Box sx={{m:2}}>
+                />
+                </Stack>
                 <TextField 
                     required
-                    label="Month"
-                    name="Month"
-                    style = {{width: 100}}
-                    //value={values.Month}
-                    // onChange={handleChange}
-                    // onBlur={handleBlur} 
-                />
-                <TextField
-                    required
-                    label="Day"
-                    name="Day"
-                    style = {{width: 100}}
-                    //value={values.Month}
-                    // onChange={handleChange}
-                    // onBlur={handleBlur} 
-                />
-                <TextField
-                    required
-                    label="Year"
-                    name="Year"
-                    style = {{width: 100}}
-                    //value={values.Month}
-                    // onChange={handleChange}
-                    // onBlur={handleBlur} 
-                />
-                </Box>
-                </div>
-                <div>
-                <Box sx={{m:2}}>
-                <TextField
-                    required
-                    placeholder='Start Time'
-                    label="Start Time"
-                    name="startTime"
-                    value={values.startTime}
+                    label="Date"
+                    type="date"
+                    name='date'
+                    defaultValue={values.date}
+                    InputLabelProps={{
+                        shrink: true,
+                      }}
                     onChange={handleChange}
                     onBlur={handleBlur} 
                 />
-                {/* <InputLabel>Start Hour</InputLabel>
-                    <Select onChange={handleChange}>
-                        {hours.map((hour) => (
-                        <MenuItem key={hour} value={hour}>
-                        {hour}
-                        </MenuItem>))}
-                    </Select> */}
+                <Stack direction="row" spacing={2}>
+                <Box>
+                <InputLabel>Start Time</InputLabel>
+                <Select 
+                    required
+                    name='startHour'
+                    onChange={handleChange}
+                    >
+                    {hours.map((hour) => (
+                    <MenuItem key={hour} value={hour}>
+                    {hour}
+                    </MenuItem>))}
+                </Select>
+                <Select 
+                    required
+                    name='startMin'
+                    onChange={handleChange}
+                    >
+                    {mins.map((minute) => (
+                    <MenuItem key={minute} value={minute}>
+                    {minute}
+                    </MenuItem>))}
+                </Select>
                 <Select
                     required
+                    name='startPeriod'
                     onChange={handleChange}
                     defaultValue = "AM"
                 >
                     <MenuItem value={'AM'}>AM</MenuItem>
                     <MenuItem value={'PM'}>PM</MenuItem>
                 </Select>
-                <TextField
+                </Box>
+                <Box>
+                <InputLabel>End Time</InputLabel>
+                <Select 
                     required
-                    placeholder='End Time'
-                    label="End Time"
-                    name="endTime"
-                    value={values.endTime}
+                    name='endHour'
                     onChange={handleChange}
-                    onBlur={handleBlur} 
-                />
+                    >
+                    {hours.map((hour) => (
+                    <MenuItem key={hour} value={hour}>
+                    {hour}
+                    </MenuItem>))}
+                </Select>
+                <Select 
+                    required
+                    name='endMin'
+                    onChange={handleChange}
+                    >
+                    {mins.map((minute) => (
+                    <MenuItem key={minute} value={minute}>
+                    {minute}
+                    </MenuItem>))}
+                </Select>
                 <Select
                     required
+                    name='endPeriod'
                     defaultValue = "AM"
                     onChange={handleChange}
                     >
                     <MenuItem value={'AM'}>AM</MenuItem>
                     <MenuItem value={'PM'}>PM</MenuItem>
-                </Select></Box></div>
-                <div>
+                </Select>
+                </Box>
+                </Stack>
                 <TextField 
                     label="Additional Comments"
                     name="Additional Comments"
-                    //value={values.Month}
-                    // onChange={handleChange}
-                    // onBlur={handleBlur} 
-                />
-                </div>        
+                />       
                 <Button sx={{ m:2 }} type="submit">Create Post</Button>
+                </Stack>
             </Form>
             )}
         </Formik>
+        </Grid>
+        <Grid item xs={4}></Grid>
+        </Grid>
+        </Box>
     );
 };
