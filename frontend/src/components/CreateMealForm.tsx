@@ -273,7 +273,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 <Select 
                     required
                     name='startHour'
-                    // value={values.startHour}
+                    value={values.startHour}
                     onChange={handleChange}
                     >
                     {hours.map((hour) => (
