@@ -6,7 +6,10 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 //import { Link, useNavigate, Navigate } from 'react-router-dom';
-import Link from '@mui/material/Link';
+
+// import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
+
 
 interface Props {
   title: String
@@ -64,14 +67,15 @@ const Header: FC<Props> = ({ title }): ReactElement => {
               'aria-labelledby': 'basic-button',
             }}
           >
-            <MenuItem onClick={handleClose}><Link href='/' color="inherit" underline="none">Home</Link></MenuItem>
-            <MenuItem onClick={handleClose}><Link href='/login' color="inherit" underline="none">Login</Link></MenuItem>
-            <MenuItem onClick={handleClose}><Link href='/register' color="inherit" underline="none">Register</Link></MenuItem>
-            <MenuItem onClick={handleClose}><Link href='/createpost' color="inherit" underline="none">Create Post</Link></MenuItem>
-            <MenuItem onClick={handleClose}><Link href='/viewpostdemo' color="inherit" underline="none">View Meal</Link></MenuItem>
+            <MenuItem component={Link} to={'/'} onClick={handleClose}>Home</MenuItem>
+            <MenuItem component={Link} to={'/login'} onClick={handleClose}>Login</MenuItem>
+            <MenuItem component={Link} to={'/register'} onClick={handleClose}>Register</MenuItem>
+            <MenuItem component={Link} to={'/createpost'} onClick={handleClose}>Create Post</MenuItem>
+            <MenuItem component={Link} to={'/viewpostdemo'} onClick={handleClose}>View Meal</MenuItem>
           </Menu>
-
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          
+          {/* TODO: Fix underline */}
+          <Typography variant="h6" component={Link} to={'/'} sx={{ flexGrow: 1 }} color="textPrimary">
             {title}
           </Typography>
           <IconButton

@@ -1,6 +1,7 @@
 import React, { ReactElement, FC} from "react";
 import {Box, Button, Typography, Grid, Card, CardContent, Chip} from "@mui/material";
 import Stack from '@mui/material/Stack';
+import { Link } from 'react-router-dom';
 
 interface Props {
     id: String;
@@ -51,7 +52,7 @@ return (
                 <Grid item xs={2}>
                     <Box sx={{ textAlign: "center" }}>
                         <Typography variant="h3" component="div" gutterBottom>${price}</Typography>
-                        <Button variant="contained" href={`/viewpost/${id}`}>View Meal</Button>
+                        <Button variant="contained" component={Link} to={`/viewpost/${id}`}>View Meal</Button>
                     </Box>
                 </Grid>
             </Grid>
