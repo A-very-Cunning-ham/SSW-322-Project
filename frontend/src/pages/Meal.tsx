@@ -64,47 +64,46 @@ const Meal: FC<any> = (): ReactElement => {
     }, [id])
     
     return (
-        <Grid container spacing={2}>
-            <Grid item container spacing={2}
-                direction="row"
-                justifyContent="space-between"
-                alignItems="flex-start">
-                {/* <Grid item xs={2}>
-                    <Avatar src={host.imageUrl} />
-                </Grid> */}
-                <Grid item xs={5}>
-                    <Typography align="center">{postData.meals[0].title}</Typography>
-                </Grid>
-                <Grid item xs={2}>
-                    <Button>Join Meal</Button>
-                </Grid>
-            </Grid>
-
-            <Grid item xs={5}>
+        <Box sx={{ m:3 }}>
+        <Grid container spacing={3}>
+            <Grid item xs={4}>
+                {/* <Avatar src={host.imageUrl} /> */}
                 <Box component="img" sx={{ maxWidth: "100%" }} src="https://www.lactaid.com/sites/lactaid_us/files/recipe-images/mac-and-cheese-website.png" />
+                <Box sx={{ m:3, textAlign: 'center' }}>
+                <Button variant="contained">Join Meal</Button>
+                </Box>
             </Grid>
-
-            <Grid item xs="auto">
-            {/* TODO: align this to the right side of the page */}
-                <Card sx={{ minWidth: 275 }}> 
+            <Grid item xs={8}>
+                <Typography variant="h6" gutterBottom>{postData.meals[0].title}</Typography>
+                <Typography variant="body1" gutterBottom>{postData.meals[0].description}</Typography>
+                <Card sx={{ minWidth: 275 }}>
                     <CardContent>
+                        {/* Use Box */}
+                        <Grid container> 
+                        <Grid item xs>
                         <Typography variant="h5" component="div">
-                            {postData.meals[0].price}
+                            ${postData.meals[0].price}
                         </Typography>
                         <Typography sx={{ mb: 1.5 }} color="text.secondary">
                             {postData.address}
                         </Typography>
-                        <Box component="img" sx={{ maxWidth: "100%" }} src="https://www.400capital.com/wp-content/uploads/2014/02/map-placeholder.png" alt="map placeholder image" />
-                        <br />
-                        {postData.meals[0].filters.map(item => <Chip label={item} color="success" />)}
+                        <Box component="img" sx={{ maxWidth: "50%" }} src="https://www.400capital.com/wp-content/uploads/2014/02/map-placeholder.png" alt="map placeholder image" />
+                        </Grid>
+                        <Grid item xs>
+                            <Typography variant="h5" component="div">
+                                Date
+                            </Typography>
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                8:00 AM - 10:00 AM
+                            </Typography>
+                            {postData.meals[0].filters.map(item => <Chip label={item} color="primary" />)}
+                        </Grid>
+                        </Grid>
                     </CardContent>
                 </Card>
             </Grid>
-            <Grid item xs={5}>
-                <Typography variant="body1">{postData.meals[0].description}</Typography>
-            </Grid>
-
         </Grid>
+        </Box>
     );
 };
 

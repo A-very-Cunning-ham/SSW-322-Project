@@ -57,7 +57,8 @@ const CreateMeal: FC<any> = (): ReactElement => {
                                 description: description,
                                 filters: tagNames,
                             })
-                        })
+                        });
+                        // window.location.href = `/posts/${data}`; //test this
                     });
             }}
             />

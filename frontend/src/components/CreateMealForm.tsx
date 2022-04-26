@@ -39,7 +39,7 @@ interface Props {
     onSubmit: (values: Values) => void;
 }
 
-const hours = ['00','01','02','03','04','05','06','07','08','09','10','11','12']    //could simplify start/end time by making it a dropdown
+const hours = ['01','02','03','04','05','06','07','08','09','10','11','12']    //could simplify start/end time by making it a dropdown
 const mins = ['00','15','30','45']
 
 const dietaryRestrictionTags = [
