@@ -3,6 +3,7 @@ import {Box, Button, Typography, Grid, Card, CardContent, Chip} from "@mui/mater
 import Stack from '@mui/material/Stack';
 
 interface Props {
+    id: String;
     title: String
     address: String
     startTime: String
@@ -12,7 +13,7 @@ interface Props {
     filters: string[];
   }
 
-const MealSummaryRow: FC<Props> = ({ title, address, startTime, endTime, capacity, price, filters }): ReactElement => {
+const MealSummaryRow: FC<Props> = ({ id, title, address, startTime, endTime, capacity, price, filters }): ReactElement => {
 return (
     <Card>
         <CardContent>
@@ -50,7 +51,7 @@ return (
                 <Grid item xs={2}>
                     <Box sx={{ textAlign: "center" }}>
                         <Typography variant="h3" component="div" gutterBottom>${price}</Typography>
-                        <Button variant="contained">View Meal</Button>
+                        <Button variant="contained" href={`/viewpost/${id}`}>View Meal</Button>
                     </Box>
                 </Grid>
             </Grid>

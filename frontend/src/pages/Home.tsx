@@ -133,7 +133,7 @@ const Home: FC<any> = (): ReactElement => {
                         postData.allPosts?.map((p) => (
 
                             <React.Fragment key={p._id}>
-                                <MealSummaryRow title={p.meals[0].title}
+                                <MealSummaryRow id={p._id} title={p.meals[0].title}
                                     address={p.address} startTime={p.startTime}
                                     endTime={p.endTime} capacity={p.capacity}
                                     price={p.meals[0].price} filters={p.meals[0].filters} />
