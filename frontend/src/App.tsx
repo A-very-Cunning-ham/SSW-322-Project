@@ -34,16 +34,11 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header title="PlaceHolder" />
       <Box height="100vh" display="flex" flexDirection="column">
         <BrowserRouter>
-          <Routes>
-            {/* <Route
-              path="/meals/:id"
-              // TODO: pass props
-              element={<Meal />} 
-            /> */}
+          <Header title="PlaceHolder" />
 
+          <Routes>
             <Route
               path="/"
               element={<Home />}
@@ -71,7 +66,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </Box>
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }
 

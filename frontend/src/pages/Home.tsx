@@ -75,25 +75,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Home: FC<any> = (): ReactElement => {
     const [postData, setPostData] = useState<Posts>({
-        allPosts: [
-            {
-                _id: '',
-                startTime: '',
-                endTime: '',
-                capacity: 0,
-                address: '',
-                meals: [
-                    {
-                        _id: '',
-                        title: '',
-                        course: '',
-                        price: 0,
-                        description: '',
-                        filters: ['']
-                    }
-                ]
-            }
-        ]
+        allPosts: []
     });
 
     useEffect(() => {
@@ -133,7 +115,7 @@ const Home: FC<any> = (): ReactElement => {
                         postData.allPosts?.map((p) => (
 
                             <React.Fragment key={p._id}>
-                                <MealSummaryRow title={p.meals[0].title}
+                                <MealSummaryRow id={p._id} title={p.meals[0].title}
                                     address={p.address} startTime={p.startTime}
                                     endTime={p.endTime} capacity={p.capacity}
                                     price={p.meals[0].price} filters={p.meals[0].filters} />
