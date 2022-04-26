@@ -42,7 +42,6 @@ const Header: FC<Props> = ({ title }): ReactElement => {
 
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -108,7 +107,6 @@ const Header: FC<Props> = ({ title }): ReactElement => {
 
         </Toolbar>
       </AppBar>
-    </Box>
   );
 };
 
