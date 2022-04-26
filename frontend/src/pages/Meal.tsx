@@ -96,7 +96,10 @@ const Meal: FC<any> = (): ReactElement => {
                             <Typography sx={{ mb: 1.5 }} color="text.secondary">
                                 8:00 AM - 10:00 AM
                             </Typography>
-                            {postData.meals[0].filters.map(item => <Chip label={item} color="primary" />)}
+                            {postData.meals[0].filters.map((item, i)=> 
+                                <React.Fragment key={i}>
+                                    <Chip label={item} color="primary" />
+                                </React.Fragment>)}
                         </Grid>
                         </Grid>
                     </CardContent>
