@@ -1,9 +1,11 @@
 import React, { ReactElement, FC } from "react";
 import { Box, Typography } from "@mui/material";
 import { CreateMealForm } from '../components/CreateMealForm';
+import { useNavigate } from "react-router-dom";
 //const {ObjectId} = require('mongodb');
 
 const CreateMeal: FC<any> = (): ReactElement => {
+    let navigate = useNavigate();
     return (
         <div style={{textAlign: "center" }}>
             <div style={{textAlign: "center" }}>
@@ -18,7 +20,8 @@ const CreateMeal: FC<any> = (): ReactElement => {
                 </Box>
             </div>
         <div style={{ textAlign: "center" }}>
-            <CreateMealForm onSubmit={({ mealName, description, price, startTime, endTime, capacity, address, tagNames, courses }) => {
+            <CreateMealForm onSubmit={async ({ mealName, description, price, 
+            startTime, endTime, capacity, address, tagNames, courses }) => {
                 console.log("Now we make a meal!")
                 console.log({
                     "mealName": mealName,
@@ -31,7 +34,7 @@ const CreateMeal: FC<any> = (): ReactElement => {
                     "tagNames": tagNames,
                     "courses": courses
                 })
-                let newPost = fetch("/api/posts", {
+                let newPost = await fetch("/api/posts", {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"
@@ -43,9 +46,8 @@ const CreateMeal: FC<any> = (): ReactElement => {
                         address: address
                     })
                 })
-                    .then(res => res.json())
-                    .then(data => {
-                        fetch(`/api/meals/${data}`, {
+                const postRes = await newPost.json();
+                const meal = await fetch(`/api/meals/${postRes}`, {
                             method: "POST",
                             headers: {
                                 "Content-type": "application/json"
@@ -58,8 +60,7 @@ const CreateMeal: FC<any> = (): ReactElement => {
                                 filters: tagNames,
                             })
                         });
-                        // window.location.href = `/posts/${data}`; //test this
-                    });
+                navigate(`/viewpost/${postRes}`);
             }}
             />
         </div>
