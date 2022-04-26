@@ -12,22 +12,22 @@ export const getPostById = async (postId: string) => {
 };
 
 export const createPost = async (
+    title: string,
     startTime: Date,
     endTime: Date,
+    price: number,
+    filters: string[],
     // hostId: string,
     capacity: number,
-    address: {
-        street: string;
-        city: string;
-        state: string;
-        country: string;
-        zip: string;
-    }
+    address: string
 ) => {
     const postCollection = await posts();
     const newPost = {
+        title: title,
         startTime: startTime,
         endTime: endTime,
+        price: price,
+        filters: filters,
         // hostId: ObjectId(hostId),
         capacity: capacity,
         address: address,
@@ -39,6 +39,7 @@ export const createPost = async (
     if (!insertInfo.acknowledged || !insertInfo.insertedId) {
         throw "Could not create post";
     }
+    postCollection.createIndex({ title: "text" });
     const IDAsString = insertInfo.insertedId.toString();
     return IDAsString;
 };
@@ -47,10 +48,14 @@ export const addAttendeeToPost = async (postId: string, attendeeId: string) => {
     if (!ObjectId.isValid(postId) || !ObjectId.isValid(attendeeId)) {
         throw "Invalid ID";
     }
+    const attendeeObject = {
+        _id: ObjectId(attendeeId),
+        approval: "pending",
+    };
     const postCollection = await posts();
     const updateInfo = await postCollection.updateOne(
         { _id: ObjectId(postId) },
-        { $addToSet: { attendees: attendeeId } }
+        { $addToSet: { attendees: attendeeObject } }
     );
     if (updateInfo.modifiedCount === 0) throw "could not add attendee to post";
     return await getPostById(postId);
@@ -64,19 +69,16 @@ export const getAllPosts = async () => {
 
 export const updatePost = async (
     postId: string,
+    title: string,
     startTime: Date,
     endTime: Date,
+    price: number,
+    filters: string[],
     hostId: string,
     capacity: number,
-    address: {
-        street: string;
-        city: string;
-        state: string;
-        country: string;
-        zip: string;
-    },
+    address: string,
     meals: object[],
-    attendees: string[]
+    attendees: object[]
 ) => {
     if (!ObjectId.isValid(postId)) {
         throw "Invalid ID";
@@ -86,6 +88,7 @@ export const updatePost = async (
         { _id: ObjectId(postId) },
         {
             $set: {
+                title: title,
                 startTime: startTime,
                 endTime: endTime,
                 hostId: hostId,
@@ -114,3 +117,19 @@ export const updatePost = async (
 //     if (foundPosts.length === 0) throw "No posts found";
 //     return foundPosts;
 // };
+
+export const searchByPostTitle = async (postTitle: string) => {
+    const postCollection = await posts();
+    const foundPosts = await postCollection
+        .find({ $text: { $search: postTitle } })
+        .toArray();
+    return foundPosts;
+};
+
+export const searchByPostFilters = async (filters: string[]) => {
+    const postCollection = await posts();
+    const foundPosts = await postCollection
+        .find({ filters: { $all: filters } })
+        .toArray();
+    return foundPosts;
+};

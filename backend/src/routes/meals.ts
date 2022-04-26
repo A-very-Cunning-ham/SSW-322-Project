@@ -16,9 +16,7 @@ router.route("/:id").post(async (req: any, res: any) => {
         const newMeal = await meals.createMeal(
             req.body.title,
             req.body.course,
-            req.body.price,
             req.body.description,
-            req.body.filters,
             req.params.id
         );
         res.json(newMeal);

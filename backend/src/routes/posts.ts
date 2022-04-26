@@ -14,8 +14,11 @@ router.route("/").get(async (req: any, res: any) => {
 router.route("/").post(async (req: any, res: any) => {
     try {
         const newPost = await posts.createPost(
+            req.body.title,
             req.body.startTime,
             req.body.endTime,
+            req.body.price,
+            req.body.filters,
             // req.body.hostId,
             req.body.capacity,
             req.body.address
@@ -39,8 +42,11 @@ router.route("/:id").put(async (req: any, res: any) => {
     try {
         const updatedPost = await posts.updatePost(
             req.params.id,
+            req.body.title,
             req.body.startTime,
             req.body.endTime,
+            req.body.price,
+            req.body.filters,
             req.body.hostId,
             req.body.capacity,
             req.body.address,
