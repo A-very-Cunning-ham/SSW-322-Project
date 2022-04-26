@@ -75,25 +75,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Home: FC<any> = (): ReactElement => {
     const [postData, setPostData] = useState<Posts>({
-        allPosts: [
-            {
-                _id: '',
-                startTime: '',
-                endTime: '',
-                capacity: 0,
-                address: '',
-                meals: [
-                    {
-                        _id: '',
-                        title: '',
-                        course: '',
-                        price: 0,
-                        description: '',
-                        filters: ['']
-                    }
-                ]
-            }
-        ]
+        allPosts: []
     });
 
     useEffect(() => {
