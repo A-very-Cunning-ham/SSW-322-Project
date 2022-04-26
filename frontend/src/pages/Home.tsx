@@ -110,7 +110,6 @@ const Home: FC<any> = (): ReactElement => {
                 </Box>
                 <Typography variant="h3">Home</Typography>
                 <MealSummaryRow id="" title="Example Meal" address="1 Castle Pt" startTime="8:00 AM" endTime="9:00 AM" capacity={4} price={45.60} filters={["Vegan", "Dairy-Free"]} />
-                <div>
                     {
                         postData.allPosts?.map((p) => (
                             <React.Fragment key={p._id}>
@@ -121,9 +120,6 @@ const Home: FC<any> = (): ReactElement => {
                             </React.Fragment>
                         ))
                     }
-
-                </div>
-
 
                 {/* <Pagination count={5} /> */}
             </Stack>
