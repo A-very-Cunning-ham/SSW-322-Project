@@ -33,7 +33,7 @@ interface Values {
     address: string
     price: number
     capacity: number
-    date: any
+    date?: any
     startHour: string
     startMin: string
     startPeriod: string
@@ -113,18 +113,17 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
     const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
     };
-    
-    
+
+
     return (
         <Box>
         <Grid container spacing={2}>
         <Grid item xs={4}></Grid>
         <Grid item xs={4}>
         <Formik 
-            initialValues={{ mealName:'', description:'',address:'',price:0,capacity:0,date:Date.now(),startHour:'',startMin:'',startPeriod:'AM',endHour:'',endMin:'',endPeriod:'AM',tagNames:[''],courses:''}} 
+            initialValues={{ mealName:'', description:'',address:'',price:0,capacity:0, startHour:'',startMin:'',startPeriod:'AM',endHour:'',endMin:'',endPeriod:'AM',tagNames:[''],courses:''}} 
             onSubmit={values => {
                 values['tagNames'] = tagNames
-                alert("Invitation Created!")
                 onSubmit(values);
             }}
             >
@@ -260,7 +259,6 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     label="Date"
                     type="date"
                     name='date'
-                    defaultValue={values.date}
                     InputLabelProps={{
                         shrink: true,
                       }}
