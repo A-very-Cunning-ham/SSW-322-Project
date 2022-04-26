@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-import * as meals from "../services/meals";
+import * as posts from "../services/posts";
 
 router.route("/:searchTerm").get(async (req: any, res: any) => {
     try {
         const searchTerm = req.params.searchTerm;
-        const foundMeals = await meals.searchByMealTitle(searchTerm);
-        res.json(foundMeals);
+        const foundPosts = await posts.searchByPostTitle(searchTerm);
+        res.json(foundPosts);
     } catch (err) {
         console.log(err);
         res.status(500).json({ error: err });
