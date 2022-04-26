@@ -273,6 +273,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 <Select 
                     required
                     name='startHour'
+                    // value={values.startHour}
                     onChange={handleChange}
                     >
                     {hours.map((hour) => (
@@ -283,6 +284,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 <Select 
                     required
                     name='startMin'
+                    value={values.startMin}
                     onChange={handleChange}
                     >
                     {mins.map((minute) => (
@@ -305,6 +307,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 <Select 
                     required
                     name='endHour'
+                    value={values.endHour}
                     onChange={handleChange}
                     >
                     {hours.map((hour) => (
@@ -315,6 +318,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 <Select 
                     required
                     name='endMin'
+                    value={values.endMin}
                     onChange={handleChange}
                     >
                     {mins.map((minute) => (
