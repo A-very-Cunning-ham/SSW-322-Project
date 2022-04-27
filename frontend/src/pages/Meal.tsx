@@ -20,15 +20,16 @@ interface Meal{
     _id: string;
     title: string;
     course: string;
-    price: number;
     description: string;
-    filters: string[];
 }
 
 interface PostType {
     date: any;
+    title: string;
     startTime: string;
     endTime: string;
+    price: number;
+    filters: string[];
     capacity: number;
     address: string;
     meals: Meal[];
@@ -39,17 +40,20 @@ const Meal: FC<any> = (): ReactElement => {
     let { id } = useParams();
     const [postData, setPostData] = useState<PostType>({
         date: '',
+        title: '',
         startTime: '',
         endTime: '',
+        price: 0,
+        filters: [''],
         capacity: 0,
         address: '',
         meals: [
-            {    _id: '',
+            {
+                _id: '',
                 title: '',
                 course: '',
-                price: 0,
                 description: '',
-                filters: ['']}
+            }
         ]
         
     });
@@ -76,7 +80,7 @@ const Meal: FC<any> = (): ReactElement => {
                 </Box>
             </Grid>
             <Grid item xs={8}>
-                <Typography variant="h6" gutterBottom>{postData.meals[0].title}</Typography>
+                <Typography variant="h6" gutterBottom>{postData.title}</Typography>
                 <Typography variant="body1" gutterBottom>{postData.meals[0].description}</Typography>
                 <Card sx={{ minWidth: 275 }}>
                     <CardContent>
@@ -84,7 +88,7 @@ const Meal: FC<any> = (): ReactElement => {
                         <Grid container> 
                         <Grid item xs>
                         <Typography variant="h5" component="div">
-                            ${postData.meals[0].price}
+                            ${postData.price}
                         </Typography>
                         <Typography sx={{ mb: 1.5 }} color="text.secondary">
                             {postData.address}
@@ -98,7 +102,7 @@ const Meal: FC<any> = (): ReactElement => {
                             <Typography sx={{ mb: 1.5 }} color="text.secondary">
                                 {postData.startTime} - {postData.endTime}
                             </Typography>
-                            {postData.meals[0].filters.map((item, i)=> 
+                            {postData.filters.map((item, i)=> 
                                 <React.Fragment key={i}>
                                     <Chip label={item} color="primary" />
                                 </React.Fragment>)}
