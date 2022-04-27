@@ -37,7 +37,8 @@ return (
                 <Grid item xs={2}>
                     <Typography variant="h5" gutterBottom>Date</Typography>
                     <Typography variant="h6" color="text.secondary" gutterBottom>4/28/2022</Typography>
-                    <Typography variant="h6" color="text.secondary" gutterBottom>{startTimeDate.toLocaleTimeString()} - {endTimeDate.toLocaleTimeString()}</Typography>
+                    <Typography variant="h6" color="text.secondary" gutterBottom>{startTimeDate.toLocaleString([], { year: 'numeric',
+                                 month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'})} - {endTimeDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Typography>
                 </Grid>
                 <Grid item xs={2}>
                     <Typography variant="h5" gutterBottom>Capacity</Typography>

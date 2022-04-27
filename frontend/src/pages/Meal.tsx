@@ -68,7 +68,10 @@ const Meal: FC<any> = (): ReactElement => {
         }
         fetchData();
     }, [id])
-    
+
+    var startTimeDate = new Date(postData.startTime);
+    var endTimeDate = new Date(postData.endTime);
+
     return (
         <Box sx={{ m:3 }}>
         <Grid container spacing={3}>
@@ -100,7 +103,8 @@ const Meal: FC<any> = (): ReactElement => {
                                 {postData.date}
                             </Typography>
                             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                {postData.startTime} - {postData.endTime}
+                                {startTimeDate.toLocaleString([], { year: 'numeric',
+                                 month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'})} - {endTimeDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </Typography>
                             {postData.filters.map((item, i)=> 
                                 <React.Fragment key={i}>
