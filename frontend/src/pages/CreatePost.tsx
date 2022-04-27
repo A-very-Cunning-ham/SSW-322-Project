@@ -20,14 +20,14 @@ const CreateMeal: FC<any> = (): ReactElement => {
                 </Box>
             </div>
         <div style={{ textAlign: "center" }}>
-            <CreateMealForm onSubmit={async ({ mealName, description, price, date,
-            startHour,startMin,startPeriod,endHour,endMin,endPeriod, capacity, address, tagNames, courses }) => {
-                var startTime = new Date(date + ' ' + startHour.concat(':',startMin,' ',startPeriod)) //format: 00:00 AM
-                var endTime = new Date(date + ' ' + endHour.concat(':',endMin,' ',endPeriod)) //format: 00:00 AM
-
+            <CreateMealForm onSubmit={async ({ postTitle, description, price, date,
+            startHour,startMin,startPeriod,endHour,endMin,endPeriod, capacity, address, tagNames, meals }) => {
+                var startTime = new Date(date + ' ' + startHour.concat(':',startMin,' ',startPeriod))   //format: 00:00 AM
+                var endTime = new Date(date + ' ' + endHour.concat(':',endMin,' ',endPeriod))           //format: 00:00 AM
+                
                 console.log("Now we make a meal!")
                 console.log({
-                    "mealName": mealName,
+                    "postTitle": postTitle,
                     "description": description,
                     "price": price,
                     "date": date,
@@ -36,7 +36,7 @@ const CreateMeal: FC<any> = (): ReactElement => {
                     "capacity": capacity,
                     "address": address,
                     "tagNames": tagNames,
-                    "courses": courses
+                    "meals": meals
                 })
                 let newPost = await fetch("/api/posts", {
                     method: "POST",
@@ -44,7 +44,7 @@ const CreateMeal: FC<any> = (): ReactElement => {
                         "Content-type": "application/json"
                     },
                     body: JSON.stringify({
-                        title: mealName, //TODO make unique post title
+                        title: postTitle, //TODO make unique post title
                         startTime: startTime,
                         endTime: endTime,
                         price: price,
@@ -54,17 +54,25 @@ const CreateMeal: FC<any> = (): ReactElement => {
                     })
                 })
                 const postRes = await newPost.json();
-                const meal = await fetch(`/api/meals/${postRes}`, {
-                            method: "POST",
-                            headers: {
-                                "Content-type": "application/json"
-                            },
-                            body: JSON.stringify({
-                                title: mealName,
-                                course: courses,
-                                description: description,
-                            })
-                        });
+
+                const mealRes = await Promise.all(
+                    meals.map(async (meal) => {
+                      const response = await fetch(`/api/meals/${postRes}`, {
+                        method: "POST",
+                        headers: {
+                            "Content-type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            course: meal.course,
+                            title: meal.dishTitle,
+                            description: meal.dishDesc
+                        })
+                    });
+                      return await response.json();
+                    })
+                  );
+
+                console.log(mealRes)
                 navigate(`/viewpost/${postRes}`);
             }}
             />

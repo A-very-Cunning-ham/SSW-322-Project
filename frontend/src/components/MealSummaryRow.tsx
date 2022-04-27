@@ -7,6 +7,7 @@ interface Props {
     id: String;
     title: String
     address: String
+    date: String
     startTime: String
     endTime: String
     capacity: number;
@@ -14,7 +15,7 @@ interface Props {
     filters: string[];
   }
 
-const MealSummaryRow: FC<Props> = ({ id, title, address, startTime, endTime, capacity, price, filters }): ReactElement => {
+const MealSummaryRow: FC<Props> = ({ id, title, address, date, startTime, endTime, capacity, price, filters }): ReactElement => {
 return (
     <Card>
         <CardContent>
@@ -32,7 +33,7 @@ return (
                 </Grid>
                 <Grid item xs={2}>
                     <Typography variant="h5" gutterBottom>Date</Typography>
-                    <Typography variant="h6" color="text.secondary" gutterBottom>4/28/2022</Typography>
+                    <Typography variant="h6" color="text.secondary" gutterBottom>{date}</Typography>
                     <Typography variant="h6" color="text.secondary" gutterBottom>{startTime} - {endTime}</Typography>
                 </Grid>
                 <Grid item xs={2}>
