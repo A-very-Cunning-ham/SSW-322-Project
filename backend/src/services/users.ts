@@ -50,7 +50,7 @@ export const authenticate = async (
     if (!password_verify) {
         throw "Invalid username or password";
     }
-    return { authenticated: true };
+    return { userId: dbUser._id.toString(), authenticated: true };
 };
 
 export const createUser = async (
@@ -81,5 +81,5 @@ export const createUser = async (
     if (!insertInfo.acknowledged || !insertInfo.insertedId) {
         throw "Could not create user";
     }
-    return { userInserted: true };
+    return { userId: insertInfo.insertedId.toString(), userCreated: true };
 };

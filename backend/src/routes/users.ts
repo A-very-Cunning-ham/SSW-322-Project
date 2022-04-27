@@ -6,21 +6,13 @@ import * as users from "../services/users";
 
 router.route("/login").post(async (req: any, res: any) => {
     try {
-        if (
-            await (
-                await users.authenticate(
-                    req.body.username,
-                    req.body.email,
-                    req.body.password
-                )
-            ).authenticated
-        ) {
-            app.use(
-                session({
-                    name: "AuthCookie",
-                    user: req.body.username,
-                })
-            );
+        const auth_response = await users.authenticate(
+                req.body.username,
+                req.body.email,
+                req.body.password
+            )
+        if (auth_response.authenticated){
+            req.session.user = auth_response.userId;
             res.json({
                 message: "Success",
             });
@@ -32,6 +24,7 @@ router.route("/login").post(async (req: any, res: any) => {
 
 router.route("/logout").get((req: any, res: any) => {
     req.session.destroy();
+    res.send('Logged out');
 });
 
 router.route("/register").post(async (req: any, res: any) => {
