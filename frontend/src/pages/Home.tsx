@@ -19,6 +19,7 @@ interface Meal {
 interface PostType {
     _id: string;
     title: string;
+    date: string;
     startTime: string;
     endTime: string;
     price: number;
@@ -91,7 +92,7 @@ const Home: FC<any> = (): ReactElement => {
     return (
         <Box sx={{ backgroundColor:'whitesmoke'}}>
         <Box sx={{ m:6 }}>
-            <Stack spacing={4} alignItems="center">
+            <Stack spacing={6} alignItems="center">
                 <Box sx={{
                     flexGrow: 1,
                     backgroundColor: 'gainsboro',
@@ -110,12 +111,12 @@ const Home: FC<any> = (): ReactElement => {
                     </Search>
                 </Box>
                 <Typography variant="h3">Home</Typography>
-                <MealSummaryRow id="" title="Example Meal" address="1 Castle Pt" startTime="8:00 AM" endTime="9:00 AM" capacity={4} price={45.60} filters={["Vegan", "Dairy-Free"]} />
+                <MealSummaryRow id="" title="Example Meal" address="1 Castle Pt" date="04-27-2022" startTime="8:00 AM" endTime="9:00 AM" capacity={4} price={45.60} filters={["Vegan", "Dairy-Free"]} />
                     {
                         postData.allPosts?.map((p) => (
                             <React.Fragment key={p._id}>
                                 <MealSummaryRow id={p._id} title={p.title}
-                                    address={p.address} startTime={p.startTime}
+                                    address={p.address} date={p.date} startTime={p.startTime}
                                     endTime={p.endTime} capacity={p.capacity}
                                     price={p.price} filters={p.filters} />
                             </React.Fragment>
