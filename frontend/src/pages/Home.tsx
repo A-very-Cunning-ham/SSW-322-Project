@@ -13,17 +13,18 @@ interface Meal {
     _id: string;
     title: string;
     course: string;
-    price: number;
     description: string;
-    filters: string[];
 }
 
 interface PostType {
     _id: string;
+    title: string;
     startTime: string;
     endTime: string;
+    price: number;
     capacity: number;
     address: string;
+    filters: string[];
     meals: Meal[];
 }
 
@@ -113,10 +114,10 @@ const Home: FC<any> = (): ReactElement => {
                     {
                         postData.allPosts?.map((p) => (
                             <React.Fragment key={p._id}>
-                                <MealSummaryRow id={p._id} title={p.meals[0].title}
+                                <MealSummaryRow id={p._id} title={p.title}
                                     address={p.address} startTime={p.startTime}
                                     endTime={p.endTime} capacity={p.capacity}
-                                    price={p.meals[0].price} filters={p.meals[0].filters} />
+                                    price={p.price} filters={p.filters} />
                             </React.Fragment>
                         ))
                     }

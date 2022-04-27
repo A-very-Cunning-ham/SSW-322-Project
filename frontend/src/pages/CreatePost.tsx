@@ -44,8 +44,11 @@ const CreateMeal: FC<any> = (): ReactElement => {
                         "Content-type": "application/json"
                     },
                     body: JSON.stringify({
+                        title: mealName, //TODO make unique post title
                         startTime: startTime,
                         endTime: endTime,
+                        price: price,
+                        filters: tagNames,
                         capacity: capacity,
                         address: address
                     })
@@ -59,9 +62,7 @@ const CreateMeal: FC<any> = (): ReactElement => {
                             body: JSON.stringify({
                                 title: mealName,
                                 course: courses,
-                                price: price,
                                 description: description,
-                                filters: tagNames,
                             })
                         });
                 navigate(`/viewpost/${postRes}`);
