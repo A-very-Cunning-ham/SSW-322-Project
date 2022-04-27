@@ -9,7 +9,10 @@ router.route("/").post(async (req: any, res: any) => {
             req.body.email,
             req.body.password
         );
-        res.json(token);
+        res.json({
+            message: "Success",
+            token: token
+        });
     } catch (err) {
         res.status(500).json({ error: err });
     }
