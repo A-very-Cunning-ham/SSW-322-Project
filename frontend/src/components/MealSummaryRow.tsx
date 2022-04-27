@@ -5,17 +5,20 @@ import { Link } from 'react-router-dom';
 
 interface Props {
     id: String;
-    title: String
-    address: String
-    date: String
-    startTime: String
-    endTime: String
+    title: String;
+    address: String;
+    startTime: string;
+    endTime: string;
     capacity: number;
     price: number;
     filters: string[];
   }
 
-const MealSummaryRow: FC<Props> = ({ id, title, address, date, startTime, endTime, capacity, price, filters }): ReactElement => {
+const MealSummaryRow: FC<Props> = ({ id, title, address, startTime, endTime, capacity, price, filters }): ReactElement => {
+
+    var startTimeDate = new Date(startTime);
+    var endTimeDate = new Date(endTime);
+
 return (
     <Card>
         <CardContent>
@@ -33,8 +36,9 @@ return (
                 </Grid>
                 <Grid item xs={2}>
                     <Typography variant="h5" gutterBottom>Date</Typography>
-                    <Typography variant="h6" color="text.secondary" gutterBottom>{date}</Typography>
-                    <Typography variant="h6" color="text.secondary" gutterBottom>{startTime} - {endTime}</Typography>
+                    <Typography variant="h6" color="text.secondary" gutterBottom>4/28/2022</Typography>
+                    <Typography variant="h6" color="text.secondary" gutterBottom>{startTimeDate.toLocaleString([], { year: 'numeric',
+                                 month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'})} - {endTimeDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Typography>
                 </Grid>
                 <Grid item xs={2}>
                     <Typography variant="h5" gutterBottom>Capacity</Typography>
@@ -52,7 +56,7 @@ return (
                 </Grid>
                 <Grid item xs={2}>
                     <Box sx={{ textAlign: "center" }}>
-                        <Typography variant="h3" component="div" gutterBottom>${price}</Typography>
+                        <Typography variant="h3" component="div" gutterBottom>${Number(price).toFixed(2)}</Typography>
                         <Button variant="contained" component={Link} to={`/viewpost/${id}`}>View Meal</Button>
                     </Box>
                 </Grid>
