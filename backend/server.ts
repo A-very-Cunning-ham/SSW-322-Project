@@ -1,10 +1,10 @@
 const express = require("express");
 import { constructorMethod as configRoutes } from "./src/routes";
-var bodyParser = require('body-parser')
+var bodyParser = require("body-parser");
 
-const app = express();
+export const app = express();
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 configRoutes(app);
 

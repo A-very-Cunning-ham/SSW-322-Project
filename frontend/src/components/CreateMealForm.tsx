@@ -1,6 +1,6 @@
 import { Button, TextField } from '@mui/material/';
 import * as React from 'react';
-import {Formik, Form} from 'formik';
+import {Formik, Form, FieldArray, getIn} from 'formik';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -27,8 +27,13 @@ const MenuProps = {
       },
     },
   };
+interface Meal {
+    course: string
+    dishTitle: string
+    dishDesc: string
+}
 interface Values {
-    mealName: string
+    postTitle: string
     description: string
     address: string
     price: number
@@ -40,8 +45,8 @@ interface Values {
     endHour: string
     endMin: string
     endPeriod: string
-    courses: string     //TO DO: figure out how to store key:value pairs for dish:course name (e.g. {['appetizer':'breadsticks'],['entree':'chicken']} )
     tagNames: string[]
+    meals: Meal[]
 }
 
 interface Props {
@@ -56,6 +61,7 @@ interface TabPanelProps {
 
 const hours = ['01','02','03','04','05','06','07','08','09','10','11','12']    //could simplify start/end time by making it a dropdown
 const mins = ['00','15','30','45']
+const courses = ['Appetizer','Entree','Dessert','Palate Cleanser','Hors D\'oeuvre','Soup','Salad']
 
 const dietaryRestrictionTags = [
     'Vegan',
@@ -109,19 +115,17 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
         );
       };
 
-    const [tabvalue, setValue] = React.useState(0);
-    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-    };
-
-
     return (
         <Box>
         <Grid container spacing={2}>
-        <Grid item xs={4}></Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}></Grid>
+        <Grid item xs={6}>
         <Formik 
-            initialValues={{ mealName:'', description:'',address:'',price:0,capacity:0, startHour:'',startMin:'',startPeriod:'AM',endHour:'',endMin:'',endPeriod:'AM',tagNames:[''],courses:''}} 
+            initialValues={{ postTitle:'',  description:'',
+            address:'',     price:0,        capacity:0, 
+            startHour:'',   startMin:'',    startPeriod:'AM',
+            endHour:'',     endMin:'',      endPeriod:'AM',
+            tagNames:[''],  meals:[{course:'', dishTitle:'', dishDesc:''}] }} 
             onSubmit={values => {
                 values['tagNames'] = tagNames
                 onSubmit(values);
@@ -142,10 +146,10 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                 </Button>
                 <TextField sx={{ m:2 }}
                     required
-                    placeholder='Meal Name'
-                    label="Meal Name"
-                    name="mealName"
-                    value={values.mealName}
+                    placeholder='Post Title'
+                    label="Post Title"
+                    name="postTitle"
+                    value={values.postTitle}
                     onChange={handleChange}
                     onBlur={handleBlur} 
                 />
@@ -167,49 +171,53 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     onChange={handleChange}
                     onBlur={handleBlur} 
                 />
-                <Stack direction="row" spacing={2}>
-                <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', }}>
-                <Tabs
-                    orientation="vertical"
-                    variant="scrollable"
-                    value={tabvalue}
-                    onChange={handleTabChange}
-                    sx={{ borderRight: 1, borderColor: 'divider' }}>
-
-                    <Tab label="Appetizer" {...a11yProps(0)} />
-                    <Tab label="Main Course *" {...a11yProps(1)} />
-                    <Tab label="Dessert" {...a11yProps(2)} />
-                </Tabs>
-                </Box>
-                <TabPanel value={tabvalue} index={0}>
-                    <TextField 
-                        label="Appetizer"
-                        name="Appetizer"
-                        onChange={handleChange}
-                        onBlur={handleBlur} 
-                    />
-                </TabPanel>
-                <TabPanel value={tabvalue} index={1}>
-                    <TextField 
-                        required
-                        label="Main Course"
-                        placeholder='Main Course'
-                        name="Main Course"
-                        
-                        onChange={handleChange}
-                        onBlur={handleBlur} 
-                    />
-                </TabPanel>
-                <TabPanel value={tabvalue} index={2}>
-                    <TextField 
-                        label="Dessert"
-                        name="Dessert"
-                        onChange={handleChange}
-                        onBlur={handleBlur} 
-                    />
-                </TabPanel>
-                </Stack>
-                
+                <FieldArray name="meals">{({push, remove})=>(
+                    <div>
+                        {values.meals.map((p,index)=>{
+                            const course = `meals[${index}].course`;
+                            const dishTitle = `meals[${index}].dishTitle`;
+                            const dishDesc = `meals[${index}].dishDesc`;
+                            
+                            return (
+                                <div key={index}>
+                                    <Select 
+                                        required
+                                        name={course}
+                                        // defaultValue={course}
+                                        value={p.course}
+                                        onChange={handleChange}
+                                        >
+                                        {courses.map((dish) => (
+                                        <MenuItem key={dish} value={dish}>{dish}</MenuItem>))}
+                                    </Select>
+                                    <TextField
+                                        required
+                                        label="Dish Title"
+                                        name={dishTitle}
+                                        // defaultValue={p.dishTitle}
+                                        value={p.dishTitle}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur} 
+                                    />
+                                    <TextField
+                                        required
+                                        label="Dish Description"
+                                        name={dishDesc}
+                                        // defaultValue={p.dishDesc}
+                                        value={p.dishDesc}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur} 
+                                    />
+            
+                                    <Button type="button" variant="outlined" onClick={() => remove(index)}>x</Button>
+                                </div>
+                                
+                            );
+                        })}
+                        <Button type="button" variant="outlined" onClick={() => push({ course:"", dishTitle:"", dishDesc:"" })}>Add</Button>
+                    </div>    
+                )}
+                </FieldArray>
                 <FormControl sx={{ m: 2, width: 250 }}>
                 <InputLabel id="diet-restrictions-label">Dietary Restrictions</InputLabel>
                 <Select
@@ -345,7 +353,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
             )}
         </Formik>
         </Grid>
-        <Grid item xs={4}></Grid>
+        <Grid item xs={3}></Grid>
         </Grid>
         </Box>
     );

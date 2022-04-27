@@ -34,6 +34,10 @@ export const login = async (
     );
 };
 
+export const logout = async () => {
+    localStorage.removeItem("token");
+};
+
 export const verifyJWT = async (req: any, res: any, next: any) => {
     const token = req.headers["x-access-token"]?.split(" ")[1];
     if (!token) {
