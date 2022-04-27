@@ -33,7 +33,7 @@ return (
                 <Grid item xs={2}>
                     <Typography variant="h5" gutterBottom>Date</Typography>
                     <Typography variant="h6" color="text.secondary" gutterBottom>4/28/2022</Typography>
-                    <Typography variant="h6" color="text.secondary" gutterBottom>{startTime} AM - {endTime} AM</Typography>
+                    <Typography variant="h6" color="text.secondary" gutterBottom>{startTime} - {endTime}</Typography>
                 </Grid>
                 <Grid item xs={2}>
                     <Typography variant="h5" gutterBottom>Capacity</Typography>

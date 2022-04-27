@@ -20,13 +20,17 @@ const CreateMeal: FC<any> = (): ReactElement => {
                 </Box>
             </div>
         <div style={{ textAlign: "center" }}>
-            <CreateMealForm onSubmit={async ({ mealName, description, price, 
-            startTime, endTime, capacity, address, tagNames, courses }) => {
+            <CreateMealForm onSubmit={async ({ mealName, description, price, date,
+            startHour,startMin,startPeriod,endHour,endMin,endPeriod, capacity, address, tagNames, courses }) => {
+                var startTime = new Date(date + ' ' + startHour.concat(':',startMin,' ',startPeriod)) //format: 00:00 AM
+                var endTime = new Date(date + ' ' + endHour.concat(':',endMin,' ',endPeriod)) //format: 00:00 AM
+
                 console.log("Now we make a meal!")
                 console.log({
                     "mealName": mealName,
                     "description": description,
                     "price": price,
+                    "date": date,
                     "startTime": startTime,
                     "endTime": endTime,
                     "capacity": capacity,

@@ -26,6 +26,7 @@ interface Meal{
 }
 
 interface PostType {
+    date: any;
     startTime: string;
     endTime: string;
     capacity: number;
@@ -37,6 +38,7 @@ interface PostType {
 const Meal: FC<any> = (): ReactElement => {
     let { id } = useParams();
     const [postData, setPostData] = useState<PostType>({
+        date: '',
         startTime: '',
         endTime: '',
         capacity: 0,
@@ -91,10 +93,10 @@ const Meal: FC<any> = (): ReactElement => {
                         </Grid>
                         <Grid item xs>
                             <Typography variant="h5" component="div">
-                                Date
+                                {postData.date}
                             </Typography>
                             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                8:00 AM - 10:00 AM
+                                {postData.startTime} - {postData.endTime}
                             </Typography>
                             {postData.meals[0].filters.map((item, i)=> 
                                 <React.Fragment key={i}>
