@@ -72,7 +72,7 @@ router
         }
     });
 
-router.get("/history", async (req: any, res: any) => {
+router.route("/history").get(async (req: any, res: any) => {
     try {
         const postsByHost = await posts.getPostsByHostId(req.session.user);
         res.json(postsByHost);
