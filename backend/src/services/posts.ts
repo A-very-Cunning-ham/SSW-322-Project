@@ -50,7 +50,7 @@ export const addAttendeeToPost = async (postId: string, attendeeId: string) => {
     }
     const attendeeObject = {
         _id: ObjectId(attendeeId),
-        approval: "pending",
+        status: "pending",
     };
     const postCollection = await posts();
     const updateInfo = await postCollection.updateOne(
