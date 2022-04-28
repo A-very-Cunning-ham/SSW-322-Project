@@ -17,7 +17,7 @@ export const createPost = async (
     endTime: Date,
     price: number,
     filters: string[],
-    // hostId: string,
+    hostId: string,
     capacity: number,
     address: string
 ) => {
@@ -28,7 +28,7 @@ export const createPost = async (
         endTime: endTime,
         price: price,
         filters: filters,
-        // hostId: ObjectId(hostId),
+        hostId: ObjectId(hostId),
         capacity: capacity,
         address: address,
         meals: [],
@@ -104,19 +104,19 @@ export const updatePost = async (
     return await getPostById(postId);
 };
 
-// export const getPostsByHostId = async (hostId: string) => {
-//     if (!ObjectId.isValid(hostId)) {
-//         throw "Invalid ID";
-//     }
-//     const postCollection = await posts();
-//     const foundPosts = await postCollection
-//         .find({
-//             hostId: ObjectId(hostId),
-//         })
-//         .toArray();
-//     if (foundPosts.length === 0) throw "No posts found";
-//     return foundPosts;
-// };
+export const getPostsByHostId = async (hostId: string) => {
+    if (!ObjectId.isValid(hostId)) {
+        throw "Invalid ID";
+    }
+    const postCollection = await posts();
+    const foundPosts = await postCollection
+        .find({
+            hostId: ObjectId(hostId),
+        })
+        .toArray();
+    if (foundPosts.length === 0) throw "No posts found";
+    return foundPosts;
+};
 
 export const searchByPostTitle = async (postTitle: string) => {
     const postCollection = await posts();
