@@ -35,10 +35,20 @@ const NotificationCardHost: FC<Props> = ({ hostId, userId, status }): ReactEleme
                         onClick={() => {
                             async function patchData() {
                                 // TO DO: const update = await axios.patch(`/api/notifs/host`);
+
+                                const response = await fetch(`/api/notifs/host/`, {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        userId: userId,
+                                        status: "accepted",
+                                    })
+                                });
                             }
                             patchData();
                             
-                            alert('Guest Request Accepted');
                           }}
                           >
                         <CheckBoxIcon color="success"/>
@@ -48,7 +58,21 @@ const NotificationCardHost: FC<Props> = ({ hostId, userId, status }): ReactEleme
                     <IconButton 
                         component={Link} to={'/'}
                         onClick={() => {
-                            alert('Guest Request Declined');
+                            async function patchData() {
+                                // TO DO: const update = await axios.patch(`/api/notifs/host`);
+
+                                const response = await fetch(`/api/notifs/host/`, {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        userId: userId,
+                                        status: "denied",
+                                    })
+                                });
+                            }
+                            patchData();
                           }}
                           >
                         <DisabledByDefaultIcon color="error"/>
