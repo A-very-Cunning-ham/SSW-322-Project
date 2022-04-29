@@ -21,6 +21,7 @@ router
                 req.body.userId,
                 req.body.status
             );
+            res.json("success");
         } catch (err) {
             res.status(500).json({ error: err });
         }
