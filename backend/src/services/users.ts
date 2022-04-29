@@ -1,12 +1,16 @@
 import { users } from "../config/mongoCollections";
 const bcrypt = require("bcrypt");
 // const jwt = require("jsonwebtoken");
-// const session = require("express-session");
+const session = require("express-session");
 const { ObjectId } = require("mongodb");
 
-export const validate = (username: string, email: string, password: string) => {
-    if (!username || !email || !password) {
-        throw "Invalid username or password: validation";
+export const validate = (
+    username: string,
+    password: string,
+    email?: string
+) => {
+    if (!username || !password) {
+        throw "Invalid username or password";
     }
 
     if (
@@ -17,7 +21,7 @@ export const validate = (username: string, email: string, password: string) => {
         username.includes(" ") ||
         password.includes(" ")
     ) {
-        throw "Invalid username or password: validation";
+        throw "Invalid username or password";
     }
 
     const regex_username = new RegExp(/^[a-z0-9]+$/i);
@@ -27,17 +31,15 @@ export const validate = (username: string, email: string, password: string) => {
     if (!regex_username.test(username)) {
         throw "Invalid username";
     }
-    if (!regex_email.test(email)) {
-        throw "Invalid email";
+    if (email) {
+        if (!regex_email.test(email)) {
+            throw "Invalid email";
+        }
     }
 };
 
-export const authenticate = async (
-    username: string,
-    email: string,
-    password: string
-) => {
-    validate(username, email, password);
+export const authenticate = async (username: string, password: string) => {
+    validate(username, password);
 
     const userCollection = await users();
     const dbUser = await userCollection.findOne({
@@ -72,7 +74,6 @@ export const createUser = async (
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = {
-        _id: ObjectId(),
         username: username,
         email: email,
         password: hashedPassword,
@@ -82,4 +83,18 @@ export const createUser = async (
         throw "Could not create user";
     }
     return { userId: insertInfo.insertedId.toString(), userCreated: true };
+};
+
+export const getUserById = async (userId: string) => {
+    if (!ObjectId.isValid(userId)) {
+        throw "Invalid ID";
+    }
+    const userCollection = await users();
+    const dbUser = await userCollection.findOne({
+        _id: ObjectId(userId),
+    });
+    if (!dbUser) {
+        throw "User not found";
+    }
+    return dbUser;
 };

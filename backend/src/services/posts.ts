@@ -1,5 +1,6 @@
 const { ObjectId } = require("mongodb");
 import { posts } from "../config/mongoCollections";
+import { getUserById } from "./users";
 
 export const getPostById = async (postId: string) => {
     if (!ObjectId.isValid(postId)) {
@@ -17,7 +18,7 @@ export const createPost = async (
     endTime: Date,
     price: number,
     filters: string[],
-    // hostId: string,
+    hostId: string,
     capacity: number,
     address: string
 ) => {
@@ -28,7 +29,7 @@ export const createPost = async (
         endTime: endTime,
         price: price,
         filters: filters,
-        // hostId: ObjectId(hostId),
+        hostId: ObjectId(hostId),
         capacity: capacity,
         address: address,
         meals: [],
@@ -50,7 +51,7 @@ export const addAttendeeToPost = async (postId: string, attendeeId: string) => {
     }
     const attendeeObject = {
         _id: ObjectId(attendeeId),
-        approval: "pending",
+        status: "pending",
     };
     const postCollection = await posts();
     const updateInfo = await postCollection.updateOne(
@@ -104,19 +105,19 @@ export const updatePost = async (
     return await getPostById(postId);
 };
 
-// export const getPostsByHostId = async (hostId: string) => {
-//     if (!ObjectId.isValid(hostId)) {
-//         throw "Invalid ID";
-//     }
-//     const postCollection = await posts();
-//     const foundPosts = await postCollection
-//         .find({
-//             hostId: ObjectId(hostId),
-//         })
-//         .toArray();
-//     if (foundPosts.length === 0) throw "No posts found";
-//     return foundPosts;
-// };
+export const getPostsByHostId = async (hostId: string) => {
+    if (!ObjectId.isValid(hostId)) {
+        throw "Invalid ID";
+    }
+    const postCollection = await posts();
+    const foundPosts = await postCollection
+        .find({
+            hostId: ObjectId(hostId),
+        })
+        .toArray();
+    if (foundPosts.length === 0) throw "No posts found";
+    return foundPosts;
+};
 
 export const searchByPostTitle = async (postTitle: string) => {
     const postCollection = await posts();
@@ -132,4 +133,19 @@ export const searchByPostFilters = async (filters: string[]) => {
         .find({ filters: { $all: filters } })
         .toArray();
     return foundPosts;
+};
+
+export const getAcceptedAttendeeUsernames = async (postId: string) => {
+    if (!ObjectId.isValid(postId)) {
+        throw "Invalid ID";
+    }
+    const postForAttendees = await getPostById(postId);
+    const acceptedAttendees = postForAttendees.attendees.filter(
+        (attendee: any) => attendee.status === "accepted"
+    );
+
+    return acceptedAttendees.map(
+        async (attendee: any) =>
+            await getUserById(attendee._id.toString().username)
+    );
 };

@@ -12,12 +12,12 @@ router.route("/loggedin").get(async (req: any, res: any) =>
 router.route("/login").post(async (req: any, res: any) => {
     try {
         const auth_response = await users.authenticate(
-                req.body.username,
-                req.body.email,
-                req.body.password
-            )
-        if (auth_response.authenticated){
-            req.session.user = auth_response.userId;
+            req.body.username,
+            req.body.password
+        );
+
+        if (auth_response.authenticated) {
+            req.session.user = await auth_response.userId;
             res.json({
                 message: "Success",
             });
@@ -34,7 +34,7 @@ router.route("/login").post(async (req: any, res: any) => {
 
 router.route("/logout").get((req: any, res: any) => {
     req.session.destroy();
-    res.send('Logged out');
+    res.send("Logged out");
 });
 
 router.route("/register").post(async (req: any, res: any) => {

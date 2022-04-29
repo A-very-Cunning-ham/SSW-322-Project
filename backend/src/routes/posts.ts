@@ -20,7 +20,7 @@ router
                 req.body.endTime,
                 req.body.price,
                 req.body.filters,
-                // req.body.hostId,
+                req.session.user,
                 req.body.capacity,
                 req.body.address
             );
@@ -35,6 +35,9 @@ router
     .get(async (req: any, res: any) => {
         try {
             const post = await posts.getPostById(req.params.id);
+            post.userHasApplied = post.attendees.some(
+                (attendee: any) => attendee._id.toString() === req.session.user
+            );
             res.json(post);
         } catch (err) {
             res.status(500).json({ error: err });
@@ -49,7 +52,7 @@ router
                 req.body.endTime,
                 req.body.price,
                 req.body.filters,
-                req.body.hostId,
+                req.session.user,
                 req.body.capacity,
                 req.body.address,
                 req.body.meal,
@@ -64,7 +67,7 @@ router
         try {
             const postWithAttendee = await posts.addAttendeeToPost(
                 req.params.id,
-                req.body.attendeeId
+                req.session.user
             );
             res.json(postWithAttendee);
         } catch (err) {
@@ -72,13 +75,24 @@ router
         }
     });
 
-// router.get("/hostedby/:id", async (req: any, res: any) => {
-//     try {
-//         const postsByHost = await posts.getPostsByHostId(req.params.id);
-//         res.json(postsByHost);
-//     } catch (err) {
-//         res.status(500).json({ error: err });
-//     }
-// });
+router.route("/:id/accepted").get(async (req: any, res: any) => {
+    try {
+        const acceptedPosts = await posts.getAcceptedAttendeeUsernames(
+            req.params.id
+        );
+        res.json(acceptedPosts);
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
+
+router.route("/history").get(async (req: any, res: any) => {
+    try {
+        const postsByHost = await posts.getPostsByHostId(req.session.user);
+        res.json(postsByHost);
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
 
 export { router };
