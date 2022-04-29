@@ -82,3 +82,17 @@ export const createUser = async (
     }
     return { userId: insertInfo.insertedId.toString(), userCreated: true };
 };
+
+export const getUserById = async (userId: string) => {
+    if (!ObjectId.isValid(userId)) {
+        throw "Invalid ID";
+    }
+    const userCollection = await users();
+    const dbUser = await userCollection.findOne({
+        _id: ObjectId(userId),
+    });
+    if (!dbUser) {
+        throw "User not found";
+    }
+    return dbUser;
+};
