@@ -6,7 +6,7 @@ const { ObjectId } = require("mongodb");
 
 export const validate = (username: string, email: string, password: string) => {
     if (!username || !email || !password) {
-        throw "Invalid username or password";
+        throw "Invalid username or password: validation";
     }
 
     if (
@@ -17,7 +17,7 @@ export const validate = (username: string, email: string, password: string) => {
         username.includes(" ") ||
         password.includes(" ")
     ) {
-        throw "Invalid username or password";
+        throw "Invalid username or password: validation";
     }
 
     const regex_username = new RegExp(/^[a-z0-9]+$/i);
@@ -44,11 +44,11 @@ export const authenticate = async (
         username: username,
     });
     if (!dbUser) {
-        throw "Invalid username or password";
+        throw "Invalid username or password: authenticate";
     }
     const password_verify = bcrypt.compare(password, dbUser.password);
     if (!password_verify) {
-        throw "Invalid username or password";
+        throw "Invalid username or password: authenticate";
     }
     return { userId: dbUser._id.toString(), authenticated: true };
 };
