@@ -11,6 +11,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
     session({
         name: 'AuthCookie',
+        secret: "TaPneu10fY1I#uAFkQHVNtk2RQ^3E0v!zc%ya6zM93^F7nUi#Li6k8Xp&!S&btDLRn3S$vjZV5pjuAYGID09COVZ^VAh9yT@sOc",
+        saveUninitialized: true,
+        resave: false,
+        cookie: {maxAge: 90000},
         user: null,
     })
 );
