@@ -1,5 +1,6 @@
 const { ObjectId } = require("mongodb");
 import { posts } from "../config/mongoCollections";
+import { getUserById } from "./users";
 
 export const getPostById = async (postId: string) => {
     if (!ObjectId.isValid(postId)) {
@@ -132,4 +133,19 @@ export const searchByPostFilters = async (filters: string[]) => {
         .find({ filters: { $all: filters } })
         .toArray();
     return foundPosts;
+};
+
+export const getAcceptedAttendeeUsernames = async (postId: string) => {
+    if (!ObjectId.isValid(postId)) {
+        throw "Invalid ID";
+    }
+    const postForAttendees = await getPostById(postId);
+    const acceptedAttendees = postForAttendees.attendees.filter(
+        (attendee: any) => attendee.status === "accepted"
+    );
+
+    return acceptedAttendees.map(
+        async (attendee: any) =>
+            await getUserById(attendee._id.toString().username)
+    );
 };
