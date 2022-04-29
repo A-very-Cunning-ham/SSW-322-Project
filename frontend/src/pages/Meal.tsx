@@ -2,6 +2,7 @@ import React, { ReactElement, FC, useState, useEffect } from "react";
 import { Avatar, Box, Button, Card, CardActions, CardContent, Chip, Grid, Stack, Typography } from "@mui/material";
 import { useParams } from 'react-router-dom';
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 // TODO: can we store these types in a common location? 
 // interface Tag {
@@ -81,24 +82,21 @@ const Meal: FC<any> = (): ReactElement => {
     console.log(postData.userHasApplied)
 
     return (
-        <Box sx={{ m:3 }}>
-        <Grid container spacing={3}>
+        <Box sx={{ backgroundColor:"whitesmoke" }}>
+        <Box sx={{ m:6 }}>
+        <Grid container spacing={6}>
             <Grid item xs={4}>
                 {/* <Avatar src={host.imageUrl} /> */}
                 <Box component="img" sx={{ maxWidth: "100%" }} src="https://www.lactaid.com/sites/lactaid_us/files/recipe-images/mac-and-cheese-website.png"/>
                 <Box sx={{ m:3, textAlign: 'center' }}>
-
-    <Button variant="contained" onClick={handleSearch} 
-    sx={{ backgroundColor:postData.userHasApplied || postData.userHasApplied===undefined ? 'gray': 'blue'}}>Join Meal</Button>
-
-
-                
+                    <Button variant="contained" onClick={handleSearch} component={Link} to={'/'}
+                        sx={{ backgroundColor:postData.userHasApplied || postData.userHasApplied===undefined ? 'neutral': 'primary'}}>Join Meal</Button>
                 </Box>
             </Grid>
             <Grid item xs={8}>
                 <Stack spacing={3}>
                 <Typography variant="h3">{postData.title}</Typography>
-                <Typography variant="body1">{postData.meals[0].description}</Typography>
+                <Typography variant="subtitle1">{postData.meals[0].description}</Typography>
                 <Card sx={{ minWidth: 275 }}>
                     <CardContent>
                         <Grid container> 
@@ -106,16 +104,16 @@ const Meal: FC<any> = (): ReactElement => {
                         <Typography variant="h3" component="div">
                             ${postData.price}
                         </Typography>
-                        <Typography sx={{ mt:2, mb:2}} color="text.secondary">
+                        <Typography sx={{ mt:2, mb: 2 }} color="text.secondary">
                             {postData.address}
                         </Typography>
                         <Box component="img" sx={{ maxWidth: "50%" }} src="https://www.400capital.com/wp-content/uploads/2014/02/map-placeholder.png" alt="map placeholder image" />
                         </Grid>
                         <Grid item xs>
                             <Typography variant="h4" component="div">
-                                {postData.date}
+                                Date
                             </Typography>
-                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                            <Typography sx={{ mt:2, mb: 2 }} color="text.secondary">
                                 {startTimeDate.toLocaleString([], { year: 'numeric',
                                  month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'})} - {endTimeDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </Typography>
@@ -125,13 +123,37 @@ const Meal: FC<any> = (): ReactElement => {
                                     <Chip label={item} color="primary" />
                                 </React.Fragment>)}
                             </Stack>
+                            <Typography variant="h4" sx={{ mt:4, mb: 1 }}>
+                                Capacity
+                            </Typography>
+                            <Typography variant="h5" color="text.secondary">
+                                0/{postData.capacity}
+                            </Typography>
                         </Grid>
                         </Grid>
                     </CardContent>
                 </Card>
                 </Stack>
+                <Typography variant="h4" sx={{ mt:2 }}>Courses</Typography>
+                <Box sx={{mt:2}}>
+                <Stack direction="row" spacing={3}>
+                    {postData.meals.map((item, i)=>
+                        <Card sx={{ minWidth: 50 }}>
+                            <CardContent>
+                            <Stack spacing={1}>
+                                <Typography variant="h6">{item.course}</Typography>
+                                <Typography variant="h5">{item.title}</Typography>
+                                <Typography variant="body1">{item.description}</Typography>
+                            </Stack>
+                            </CardContent>
+                        </Card>
+                    )}
+                </Stack>
+                </Box>
             </Grid>
         </Grid>
+        <Box sx={{ padding: '40px'}}></Box>
+        </Box>
         </Box>
     );
 };

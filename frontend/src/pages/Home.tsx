@@ -101,7 +101,7 @@ const Home: FC<any> = (): ReactElement => {
 
     return (
         <Box sx={{ backgroundColor:'whitesmoke'}}>
-        <Box sx={{ m:6 }}>
+        <Box sx={{ mt:6, mb:6, ml:10, mr:10 }}>
             <Stack spacing={6} alignItems="center">
                 <Box sx={{
                     flexGrow: 1,
