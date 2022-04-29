@@ -32,7 +32,7 @@ const Login: FC<any> = (): ReactElement => {
                 <LoginForm onSubmit={({ username, password }) => {
                     async function login(username: any, password: any){
                         console.log(username, password)
-                        await axios.post(`api/users/login`, {username: username, password: password})
+                        await axios.post(`api/users/login`, {username: username, email: "dummy@dummy.com", password: password})
                         .then((response) => {
                             console.log(response.status)
                             if (response.status === 200) {
