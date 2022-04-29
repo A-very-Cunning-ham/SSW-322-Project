@@ -1,11 +1,12 @@
 import React, { ReactElement, FC } from "react";
 import { AppBar, Box, Toolbar, IconButton, Typography, Button } from "@mui/material"
-import MenuIcon from '@mui/icons-material/Menu';
-import axios from "axios";
 
+import axios from "axios";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 //import { Link, useNavigate, Navigate } from 'react-router-dom';
 
 // import Link from '@mui/material/Link';
@@ -96,6 +97,15 @@ const Header: FC<Props> = ({ title, hide_paths }): ReactElement | null => {
           <Typography variant="h6" component={Link} to={'/'} style={{ textDecoration: 'none' }} sx={{ flexGrow: 1 }} color="textPrimary">
             {title}
           </Typography>
+          <IconButton
+            component={Link} to={'/notifications'}
+            size="large"
+            edge="start"
+            color="inherit"
+            sx={{ mr: 2 }}
+          >
+            <NotificationsIcon />
+          </IconButton>
           <IconButton
             size="large"
             edge="start"

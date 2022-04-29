@@ -9,6 +9,7 @@ import CreatePost from "./pages/CreatePost";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ViewPostDemo from "./pages/ViewPostDemo";
+import Notifications from "./pages/Notifications";
 import { CreateNewFolderSharp } from "@mui/icons-material";
 
 function App() {
@@ -62,6 +63,10 @@ function App() {
             <Route
               path="/viewpostdemo"
               element={<ViewPostDemo />}
+            />
+            <Route
+              path="/notifications"
+              element={<Notifications />}
             />
           </Routes>
         </BrowserRouter>
