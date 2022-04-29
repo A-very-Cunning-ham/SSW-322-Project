@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
 import MealSummaryRow from '../components/MealSummaryRow';
+import debounce from 'lodash.debounce';
 
 interface Meal {
     _id: string;
@@ -88,6 +89,15 @@ const Home: FC<any> = (): ReactElement => {
         fetchData();
     }, [])
 
+    const debouncedSearch = debounce(async (criteria) => {
+        const allPosts = await axios.get(`/api/search/${criteria.toLowerCase()}`);
+        setPostData({ allPosts: allPosts.data });
+      }, 300);
+      
+      async function requestSearch(e: React.ChangeEvent<HTMLInputElement>) {
+        debouncedSearch(e.target.value);
+      }
+
 
     return (
         <Box sx={{ backgroundColor:'whitesmoke'}}>
@@ -107,6 +117,7 @@ const Home: FC<any> = (): ReactElement => {
                         <StyledInputBase
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
+                            onChange={requestSearch}
                         />
                     </Search>
                 </Box>
