@@ -1,0 +1,139 @@
+//Write a test database for entry into postman for testing.
+
+//USERS
+
+{
+    "user0": {
+        "username": "test",
+        "password": "test",
+        "email": "test@test.com",
+    }
+    "user1" {
+        "username": "test1",
+        "password": "test1",
+        "email": "test1@test.com",
+    }
+    "user2" {
+        "username": "test2",
+        "password": "test2",
+        "email": "test2@test.com",
+    }
+    "user3" {
+        "username": "test3",
+        "password": "test3",
+        "email": "test3@test.com",
+    }
+    "user4": {
+        "username": "test4",
+        "password": "test4",
+        "email": "test4@test.com",
+    }
+}
+
+//Posts
+
+{
+    "post0": {
+        "title": "test",
+        "startTime": "2022-05-01T15:00:000Z",
+        "endTime" : "2022-05-01T15:30:000Z",
+        "price": 20.00,
+        "filters": [
+            "vegan",
+            "vegetarian",
+            "gluten-free",
+        ],
+        "capacity": 10,
+        "address": "406 Jefferson St, San Francisco, CA 94133",
+        "meals": [
+            {
+                title: "testMeal",
+                course: "appetizer",
+                description: "testDescription",
+            },
+            {
+                title: "testMeal2",
+                course: "appetizer",
+                description: "testDescription2",
+            },
+        ]
+    },
+
+    "post1": {
+        "title": "test1",
+        "startTime": "2022-05-01T15:00:000Z",
+        "endTime" : "2022-05-01T15:30:000Z",
+        "price": 20.00,
+        "filters": [
+            "vegan",
+            "vegetarian",
+            "gluten-free",
+        ],
+        "capacity": 10,
+        "address": "406 Jefferson St, San Francisco, CA 94133",
+        "meals": [
+            {
+                title: "testMeal",
+                course: "appetizer",
+                description: "testDescription",
+            },
+            {
+                title: "testMeal2",
+                course: "appetizer",
+                description: "testDescription2",
+            },
+        ]
+    },
+
+    "post2": {
+        "title": "test2",
+        "startTime": "2022-05-01T15:00:000Z",
+        "endTime" : "2022-05-01T15:30:000Z",
+        "price": 20.00,
+        "filters": [
+            "vegan",
+            "vegetarian",
+            "gluten-free",
+        ],
+        "capacity": 10,
+        "address": "406 Jefferson St, San Francisco, CA 94133",
+        "meals": [
+            {
+                title: "testMeal",
+                course: "appetizer",
+                description: "testDescription",
+            },
+            {
+                title: "testMeal2",
+                course: "appetizer",
+                description: "testDescription2",
+            },
+        ]
+    },
+
+    "post3": {
+        "title": "test3",
+        "startTime": "2022-05-01T15:00:000Z",
+        "endTime" : "2022-05-01T15:30:000Z",
+        "price": 20.00,
+        "filters": [
+            "vegan",
+            "vegetarian",
+            "gluten-free",
+        ],
+        "capacity": 10,
+        "address": "406 Jefferson St, San Francisco, CA 94133",
+        "meals": [
+            {
+                title: "testMeal",
+                course: "appetizer",
+                description: "testDescription",
+            },
+            {
+                title: "testMeal2",
+                course: "appetizer",
+                description: "testDescription2",
+            },
+        ]
+    },
+}
