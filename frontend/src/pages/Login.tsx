@@ -12,7 +12,7 @@ const Login: FC<any> = (): ReactElement => {
     const navigate = useNavigate();
 
     const [error, setError] = React.useState<Error>({
-        error: "Test Error"
+        error: ""
       });
              
     return (
@@ -31,15 +31,19 @@ const Login: FC<any> = (): ReactElement => {
             <div style={{textAlign: "center" }}>
                 <LoginForm onSubmit={({ username, password }) => {
                     async function login(username: any, password: any){
-                        const res = await axios.post(`api/users/login`, {username: username, password: password});
-                        if (res.status === 200) {
-                            navigate(-1);
-                            console.log(username, password);
-                        }
-                        else {
-                            setError({error: res.data.error});
+                        console.log(username, password)
+                        await axios.post(`api/users/login`, {username: username, password: password})
+                        .then((response) => {
+                            console.log(response.status)
+                            if (response.status === 200) {
+                                navigate(-1);
+                                console.log(username, password);
+                            }
+                        })
+                        .catch((error) => {
+                            setError({error: error.response.message});
                             console.log("Login failed.");
-                        }
+                        })
                     }
                     login(username, password);
                 }}/>

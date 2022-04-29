@@ -1,6 +1,7 @@
 import React, { ReactElement, FC } from "react";
 import { AppBar, Box, Toolbar, IconButton, Typography, Button } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
+import axios from "axios";
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -40,6 +41,12 @@ const Header: FC<Props> = ({ title, hide_paths }): ReactElement | null => {
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
+
+  const handleLogout = () => {
+    const res = axios.get(`api/users/logout`)
+    console.log("Logout successful!")
+    setAnchorEl2(null);
+  }
 
   const location = useLocation();
   if (hide_paths.includes(location.pathname)) {
@@ -110,11 +117,12 @@ const Header: FC<Props> = ({ title, hide_paths }): ReactElement | null => {
             MenuListProps={{
               'aria-labelledby': 'basic-button',
             }}>
-            {settings.map((setting) => (
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            {/* {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleClose2}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-              ))}
+              ))} */}
           </Menu>
 
         </Toolbar>
