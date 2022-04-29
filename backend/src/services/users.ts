@@ -72,7 +72,6 @@ export const createUser = async (
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = {
-        _id: ObjectId(),
         username: username,
         email: email,
         password: hashedPassword,
