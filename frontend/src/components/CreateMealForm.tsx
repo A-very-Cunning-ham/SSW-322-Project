@@ -75,34 +75,6 @@ const dietaryRestrictionTags = [
     'Allergy-Free'
   ];
 
-function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`vertical-tabpanel-${index}`}
-        aria-labelledby={`vertical-tab-${index}`}
-        {...other}
-        >
-        {value === index && (
-            <Box sx={{ p: 3 }}>
-            <Typography component="span">{children}</Typography>
-            </Box>
-        )}
-        </div>
-    );
-}
-
-function a11yProps(index: number) {
-    return {
-      id: `vertical-tab-${index}`,
-      'aria-controls': `vertical-tabpanel-${index}`,
-    };
-  }
-  
-
 export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
     const [tagNames, setTagName] = React.useState<string[]>([]); //for dietary restriction tags
     const updateCheckboxValue = (event: SelectChangeEvent<string[]>) => {
@@ -180,7 +152,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                             
                             return (
                                 <div key={index}>
-                                    <Select 
+                                    <Select sx={{ mr:2, minWidth:120 }}
                                         required
                                         name={course}
                                         // defaultValue={course}
@@ -190,7 +162,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                                         {courses.map((dish) => (
                                         <MenuItem key={dish} value={dish}>{dish}</MenuItem>))}
                                     </Select>
-                                    <TextField
+                                    <TextField sx={{ mr:2 }}
                                         required
                                         label="Dish Title"
                                         name={dishTitle}
@@ -199,7 +171,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                                         onChange={handleChange}
                                         onBlur={handleBlur} 
                                     />
-                                    <TextField
+                                    <TextField sx={{ mr:2 }}
                                         required
                                         label="Dish Description"
                                         name={dishDesc}
@@ -209,12 +181,12 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                                         onBlur={handleBlur} 
                                     />
             
-                                    <Button type="button" onClick={() => remove(index)}>x</Button>
+                                    <Button type="button" variant="outlined" onClick={() => remove(index)}>x</Button>
                                 </div>
                                 
                             );
                         })}
-                        <Button type="button" variant="outlined" onClick={() => push({ course:"", dishTitle:"", dishDesc:"" })}>Add</Button>
+                        <Button sx={{ mt:1 }} type="button" variant="outlined" onClick={() => push({ course:"", dishTitle:"", dishDesc:"" })}>Add</Button>
                     </div>    
                 )}
                 </FieldArray>
@@ -281,6 +253,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     name='startHour'
                     value={values.startHour}
                     onChange={handleChange}
+                    sx={{ mr:1, minWidth:60 }}
                     >
                     {hours.map((hour) => (
                     <MenuItem key={hour} value={hour}>
@@ -292,6 +265,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     name='startMin'
                     value={values.startMin}
                     onChange={handleChange}
+                    sx={{ mr:1, minWidth:60 }}
                     >
                     {mins.map((minute) => (
                     <MenuItem key={minute} value={minute}>
@@ -315,6 +289,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     name='endHour'
                     value={values.endHour}
                     onChange={handleChange}
+                    sx={{ mr:1, minWidth:60 }}
                     >
                     {hours.map((hour) => (
                     <MenuItem key={hour} value={hour}>
@@ -326,6 +301,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                     name='endMin'
                     value={values.endMin}
                     onChange={handleChange}
+                    sx={{ mr:1, minWidth:60 }}
                     >
                     {mins.map((minute) => (
                     <MenuItem key={minute} value={minute}>
