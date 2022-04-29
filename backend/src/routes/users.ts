@@ -4,6 +4,11 @@ const router = express.Router();
 import * as users from "../services/users";
 // import { app } from "../server";
 
+// Also acts as a "logged in" function
+router.route("/loggedin").get(async (req: any, res: any) =>
+        req.session.user ? res.json(true) : res.json(false)
+    );
+
 router.route("/login").post(async (req: any, res: any) => {
     try {
         const auth_response = await users.authenticate(
@@ -17,8 +22,13 @@ router.route("/login").post(async (req: any, res: any) => {
                 message: "Success",
             });
         }
+        else {
+            res.json({
+                message: "Failure",
+            });
+        }
     } catch (err) {
-        res.status(500).json({ error: err });
+        res.status(500).json({ message: err });
     }
 });
 

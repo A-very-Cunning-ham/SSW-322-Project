@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useEffect} from 'react';
+import axios from "axios";
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -29,14 +30,8 @@ export default function SignUp() {
     }
 
     console.log(user);
-
-    fetch("/api/users", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(user)
-    })
+    axios.post(`api/users/register`, user);
+    navigate("/");
   };
 
   // useEffect(() => {

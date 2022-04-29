@@ -13,16 +13,16 @@ export const validate = (
         throw "Invalid username or password";
     }
 
-    // if (
-    //     username.length < 4 ||
-    //     password.length < 6 ||
-    //     username.trim().length === 0 ||
-    //     password.trim().length === 0 ||
-    //     username.includes(" ") ||
-    //     password.includes(" ")
-    // ) {
-    //     throw "Invalid username or password";
-    // }
+    if (
+        username.length < 4 ||
+        password.length < 6 ||
+        username.trim().length === 0 ||
+        password.trim().length === 0 ||
+        username.includes(" ") ||
+        password.includes(" ")
+    ) {
+        throw "Invalid username or password";
+    }
 
     const regex_username = new RegExp(/^[a-z0-9]+$/i);
     const regex_email = new RegExp(
@@ -46,11 +46,11 @@ export const authenticate = async (username: string, password: string) => {
         username: username,
     });
     if (!dbUser) {
-        throw "Invalid username or password";
+        throw "Invalid username or password: authenticate";
     }
     const password_verify = bcrypt.compare(password, dbUser.password);
     if (!password_verify) {
-        throw "Invalid username or password";
+        throw "Invalid username or password: authenticate";
     }
     return { userId: dbUser._id.toString(), authenticated: true };
 };

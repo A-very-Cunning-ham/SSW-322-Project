@@ -36,7 +36,7 @@ function App() {
       <CssBaseline />
       <Box height="100vh" display="flex" flexDirection="column">
         <BrowserRouter>
-          <Header title="PlaceHolder" />
+          <Header title="[placeholder]" hide_paths={["/register", "/login"]} />
 
           <Routes>
             <Route
