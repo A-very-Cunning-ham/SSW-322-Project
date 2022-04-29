@@ -6,9 +6,10 @@ router
     .route("/host")
     .get(async (req: any, res: any) => {
         try {
-            const foundNotifications = notifs.hostNotifications(
+            const foundNotifications = await notifs.hostNotifications(
                 req.session.user
             );
+
             res.json(foundNotifications);
         } catch (err) {
             res.status(500).json({ error: err });
@@ -29,7 +30,7 @@ router
 
 router.route("/guest").get(async (req: any, res: any) => {
     try {
-        const foundNotifications = notifs.attendeeNotifications(
+        const foundNotifications = await notifs.attendeeNotifications(
             req.session.user
         );
         res.json(foundNotifications);

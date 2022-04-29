@@ -43,16 +43,19 @@ export const hostNotifications = async (userId: string) => {
     const postCollection = await posts();
 
     const foundHostNotifications = await postCollection
-        .aggregate([
-            { $match: { hostId: ObjectId(userId) } },
-            { $unwind: "$attendees" },
-            { $match: { "attendees.status": "pending" } },
-            { $group: { attendees: { $push: "$attendees" } } },
-        ])
+        .find({ hostId: ObjectId(userId), "attendees.status": "pending" })
         .toArray();
 
-    console.log(foundHostNotifications);
-    return foundHostNotifications;
+    let pendingAttendees: any[] = [];
+
+    for (let post of foundHostNotifications) {
+        post.attendees = post.attendees.filter(
+            (attendee: any) => attendee.status === "pending"
+        );
+        pendingAttendees = pendingAttendees.concat(post.attendees);
+    }
+
+    return pendingAttendees;
 };
 
 export const attendeeNotifications = async (userId: string) => {
@@ -61,17 +64,18 @@ export const attendeeNotifications = async (userId: string) => {
     }
     const postCollection = await posts();
     const foundAttendeeNotifications = await postCollection
-        .aggregate([
-            { $match: { "attendees._id": ObjectId(userId) } },
-            { $unwind: "$attendees" },
-            { $match: { "attendees._id": ObjectId(userId) } },
-            { $group: { attendees: { $push: "$attendees" } } },
-        ])
+        .find({ "attendees._id": ObjectId(userId) })
         .toArray();
 
-    console.log(foundAttendeeNotifications);
+    let pendingNotifs: any[] = [];
+    for (let post of foundAttendeeNotifications) {
+        post.attendees = post.attendees.filter(
+            (attendee: any) => attendee._id.toString() === userId
+        );
+        pendingNotifs = pendingNotifs.concat(post.attendees);
+    }
 
-    return foundAttendeeNotifications;
+    return pendingNotifs;
 };
 
 export const respond = async (
