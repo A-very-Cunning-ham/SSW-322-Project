@@ -3,8 +3,8 @@ import {Box, Button, Typography, Grid, Card, CardContent, Chip} from "@mui/mater
 
 const ViewPostDemo: FC<any> = (): ReactElement => {
     return (
-        <Box sx={{ m:3 }}>
-        <Grid container spacing={3}>
+        <Box sx={{ m:6 }}>
+        <Grid container spacing={6}>
             <Grid item xs={4}>
                 {/* <Avatar src={host.imageUrl} /> */}
                 <Box component="img" sx={{ maxWidth: "100%" }} src="https://www.lactaid.com/sites/lactaid_us/files/recipe-images/mac-and-cheese-website.png" />
