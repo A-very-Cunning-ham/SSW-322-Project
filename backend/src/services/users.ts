@@ -60,7 +60,7 @@ export const createUser = async (
     email: string,
     password: string
 ) => {
-    validate(username, email, password);
+    validate(username, password, email, );
 
     const userCollection = await users();
     const takenUsername = await userCollection.findOne({

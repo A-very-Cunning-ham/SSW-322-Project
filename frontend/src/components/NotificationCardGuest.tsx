@@ -22,11 +22,11 @@ return (
                     <AccountCircleIcon/>
                 </Grid>
                 <Grid item>
-                    <Typography>{hostId}</Typography>
-                    <Typography>{userId}</Typography>
+                    <Typography component={'span'}>{hostId}</Typography>
+                    <Typography component={'span'}>{userId}</Typography>
                 </Grid>
                 <Grid item> 
-                    <Typography>Status: {status}</Typography>
+                    <Typography component={'span'}>Status: {status}</Typography>
                 </Grid>
             </Grid>
         </CardContent>
