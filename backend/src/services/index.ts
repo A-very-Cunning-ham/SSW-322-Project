@@ -5,4 +5,4 @@ export {
     addAttendeeToPost,
     updatePost,
 } from "./posts";
-export { createUser } from "./users";
+export { validate, authenticate, createUser } from "./users";
