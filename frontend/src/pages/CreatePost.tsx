@@ -76,6 +76,7 @@ const CreateMeal: FC<any> = (): ReactElement => {
                 navigate(`/viewpost/${postRes}`);
             }}
             />
+            <Box sx={{padding: '30px'}}></Box>
         </div>
     </div>
     );

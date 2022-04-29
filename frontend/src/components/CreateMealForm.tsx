@@ -209,7 +209,7 @@ export const CreateMealForm: React.FC<Props> = ({onSubmit}) => {
                                         onBlur={handleBlur} 
                                     />
             
-                                    <Button type="button" variant="outlined" onClick={() => remove(index)}>x</Button>
+                                    <Button type="button" onClick={() => remove(index)}>x</Button>
                                 </div>
                                 
                             );
