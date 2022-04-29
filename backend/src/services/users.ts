@@ -26,7 +26,7 @@ export const validate = (
 
     const regex_username = new RegExp(/^[a-z0-9]+$/i);
     const regex_email = new RegExp(
-        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        /^\S+@\S+\.\S+$/
     );
     if (!regex_username.test(username)) {
         throw "Invalid username";

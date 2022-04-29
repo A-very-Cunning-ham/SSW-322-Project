@@ -16,8 +16,16 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
+interface Error {
+  error: string;
+}
+
 export default function SignUp() {
   const navigate = useNavigate()
+
+  const [error, setError] = React.useState<Error>({
+    error: "BANANA"
+  });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,20 +38,18 @@ export default function SignUp() {
     }
 
     console.log(user);
-    axios.post(`api/users/register`, user);
-    navigate("/");
+    axios.post(`api/users/register`, user)
+    .then((response) => {
+      console.log(response.status)
+      if (response.status === 200) {
+        navigate("/");
+      }
+    })
+    .catch((error) => {
+      setError({error: error.response.message});
+      console.log("Registration failed.")
+    });
   };
-
-  // useEffect(() => {
-  //   fetch("auth/verify", {
-  //     method: "GET",
-  //     headers: {
-  //       "x-access-token": localStorage.getItem("token") as string
-  //     }
-  //   })
-  //   .then(res => res.json())
-  //   .then(data => isLoggedIn ? navigate("/") : null)
-  // }, [])
 
   return (
       <Container component="main" maxWidth="xs">
@@ -62,6 +68,20 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
+          <Box sx={{
+              flexGrow: 1,
+              flexDirection: 'column',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '10px'
+          }}>
+              <Typography variant="body2">
+                Usernames should be at least 4 chars, only letters and numbers. Passwords should be 
+                at least 6 chars, no whitespaces. 
+              </Typography>
+              <Typography variant="body2" style={{color:"#c00000"}}> {error.error} </Typography>
+          </Box>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
