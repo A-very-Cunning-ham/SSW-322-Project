@@ -17,6 +17,11 @@ router.route("/login").post(async (req: any, res: any) => {
                 message: "Success",
             });
         }
+        else {
+            res.json({
+                message: "Failure",
+            });
+        }
     } catch (err) {
         res.status(500).json({ error: err });
     }
