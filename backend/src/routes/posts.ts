@@ -70,17 +70,18 @@ router
         } catch (err) {
             res.status(500).json({ error: err });
         }
-    })
-    .route("/accepted", async (req: any, res: any) => {
-        try {
-            const acceptedPosts = await posts.getAcceptedAttendeeUsernames(
-                req.params.id
-            );
-            res.json(acceptedPosts);
-        } catch (err) {
-            res.status(500).json({ error: err });
-        }
     });
+
+router.route("/:id/accepted").get(async (req: any, res: any) => {
+    try {
+        const acceptedPosts = await posts.getAcceptedAttendeeUsernames(
+            req.params.id
+        );
+        res.json(acceptedPosts);
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
 
 router.route("/history").get(async (req: any, res: any) => {
     try {
