@@ -23,15 +23,15 @@ const NotificationCardHost: FC<Props> = ({ hostId, userId, status }): ReactEleme
                         <AccountCircleIcon/>
                     </Grid>
                     <Grid item>
-                        <Typography>{hostId}</Typography>
-                        <Typography>{userId}</Typography>
+                        <Typography component={'span'}>{hostId}</Typography>
+                        <Typography component={'span'}>{userId}</Typography>
                     </Grid>
                     <Grid item> 
-                        <Typography>Status: {status}</Typography>
+                        <Typography component={'span'}>Status: {status}</Typography>
                     </Grid>
-                    <Grid item direction="row">
+                    <Grid item>
                     <IconButton 
-                        component={Link} to={'/'}
+                        
                         onClick={() => {
                             async function patchData() {
                                 // TO DO: const update = await axios.patch(`/api/notifs/host`);
@@ -56,7 +56,7 @@ const NotificationCardHost: FC<Props> = ({ hostId, userId, status }): ReactEleme
                     {/* </Grid>
                     <Grid item> */}
                     <IconButton 
-                        component={Link} to={'/'}
+                        
                         onClick={() => {
                             async function patchData() {
                                 // TO DO: const update = await axios.patch(`/api/notifs/host`);
