@@ -9,6 +9,14 @@ router.route("/loggedin").get(async (req: any, res: any) =>
         req.session.user ? res.json(true) : res.json(false)
     );
 
+router.route("/get").get(async (req: any, res: any) => {
+    try {
+        const user = await users.getUserById(req.body.userId);
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+}
 router.route("/login").post(async (req: any, res: any) => {
     try {
         const auth_response = await users.authenticate(
