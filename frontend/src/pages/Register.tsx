@@ -37,10 +37,8 @@ export default function SignUp() {
       password: data.get('password'),
     }
 
-    console.log(user);
     axios.post(`api/users/register`, user)
     .then((response) => {
-      console.log(response.status)
       if (response.status === 200) {
         navigate("/");
       }

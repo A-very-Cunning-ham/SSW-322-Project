@@ -27,7 +27,7 @@ return (
     >
     {value === index && (
         <Box sx={{ p: 3 }}>
-        <Typography>{children}</Typography>
+        <Typography component={'span'}>{children}</Typography>
         </Box>
     )}
     </div>
@@ -89,13 +89,13 @@ const Notifications: FC<any> = (): ReactElement => {
                     alignItems: 'center'
                 }}>
                 </Box>
-                <Typography variant="h3">Notifications</Typography>
+                <Typography component={'span'} variant="h3">Notifications</Typography>
                 <Tabs value={value} onChange={handleChange} centered>
                     <Tab label="Host" {...a11yProps(0)} />
                     <Tab label="Guest" {...a11yProps(1)} />
                 </Tabs>
                 <TabPanel value={value} index={0}>
-                    <NotificationCardHost userId="User ID" status="Pending"/>
+                    <NotificationCardHost userId="User ID" status=""/>
                     {
                         hostData.allHostData.map((p) => (
                             <NotificationCardHost userId={p._id} status={p.status}/>
@@ -104,7 +104,7 @@ const Notifications: FC<any> = (): ReactElement => {
                     
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <NotificationCardGuest userId="Host ID" status="Pending"/>
+                    <NotificationCardGuest userId="Host ID" status=""/>
                     {
                         guestData.allGuestData.map((p) => (
                             <NotificationCardGuest hostId={p._id} status={p.status}/>

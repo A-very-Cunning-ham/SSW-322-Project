@@ -31,13 +31,12 @@ const Login: FC<any> = (): ReactElement => {
             <div style={{textAlign: "center" }}>
                 <LoginForm onSubmit={({ username, password }) => {
                     async function login(username: any, password: any){
-                        console.log(username, password)
                         await axios.post(`api/users/login`, {username: username, password: password})
                         .then((response) => {
                             console.log(response.status)
                             if (response.status === 200) {
                                 navigate(-1);
-                                console.log(username, password);
+        
                             }
                         })
                         .catch((error) => {

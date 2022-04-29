@@ -89,7 +89,7 @@ const Meal: FC<any> = (): ReactElement => {
                 {/* <Avatar src={host.imageUrl} /> */}
                 <Box component="img" sx={{ maxWidth: "100%" }} src="https://www.lactaid.com/sites/lactaid_us/files/recipe-images/mac-and-cheese-website.png"/>
                 <Box sx={{ m:3, textAlign: 'center' }}>
-                    <Button variant="contained" onClick={handleSearch} component={Link} to={'/'}
+                    <Button variant="contained" onClick={handleSearch}
                         sx={{ backgroundColor:postData.userHasApplied || postData.userHasApplied===undefined ? 'neutral': 'primary'}}>Join Meal</Button>
                 </Box>
             </Grid>
@@ -138,6 +138,7 @@ const Meal: FC<any> = (): ReactElement => {
                 <Box sx={{mt:2}}>
                 <Stack direction="row" spacing={3}>
                     {postData.meals.map((item, i)=>
+                    <React.Fragment key={i}>
                         <Card sx={{ minWidth: 50 }}>
                             <CardContent>
                             <Stack spacing={1}>
@@ -147,6 +148,7 @@ const Meal: FC<any> = (): ReactElement => {
                             </Stack>
                             </CardContent>
                         </Card>
+                    </React.Fragment>
                     )}
                 </Stack>
                 </Box>

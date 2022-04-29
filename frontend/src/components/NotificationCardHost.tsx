@@ -11,9 +11,29 @@ interface Props {
     hostId?: string,
     userId?: string,
     status: string,
+    post?: PostType
 }
 
-const NotificationCardHost: FC<Props> = ({ hostId, userId, status }): ReactElement => {
+interface PostType {
+    date: any;
+    title: string;
+    startTime: string;
+    endTime: string;
+    price: number;
+    filters: string[];
+    capacity: number;
+    address: string;
+    meals: Meal[];
+    userHasApplied: boolean;
+}
+interface Meal{
+    _id: string;
+    title: string;
+    course: string;
+    description: string;
+}
+
+const NotificationCardHost: FC<Props> = ({ hostId, userId, status, post }): ReactElement => {
     
     return (
         <Card sx={{ minWidth: 400 }}>
@@ -24,7 +44,7 @@ const NotificationCardHost: FC<Props> = ({ hostId, userId, status }): ReactEleme
                     </Grid>
                     <Grid item>
                         <Typography component={'span'}>{hostId}</Typography>
-                        <Typography component={'span'}>{userId}</Typography>
+                        <Typography component={'span'}>{post?.title}</Typography>
                     </Grid>
                     <Grid item> 
                         <Typography component={'span'}>Status: {status}</Typography>
