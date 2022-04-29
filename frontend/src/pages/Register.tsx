@@ -30,17 +30,8 @@ export default function SignUp() {
     }
 
     console.log(user);
-
-    // Not sure if this works, or if we should use fetch instead. 
     axios.post(`api/users/register`, user);
-
-    // fetch("/api/users", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-type": "application/json"
-    //   },
-    //   body: JSON.stringify(user)
-    // })
+    navigate("/");
   };
 
   // useEffect(() => {
