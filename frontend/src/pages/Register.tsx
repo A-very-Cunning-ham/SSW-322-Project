@@ -24,7 +24,7 @@ export default function SignUp() {
   const navigate = useNavigate()
 
   const [error, setError] = React.useState<Error>({
-    error: ""
+    error: "BANANA"
   });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -70,11 +70,16 @@ export default function SignUp() {
           </Typography>
           <Box sx={{
               flexGrow: 1,
+              flexDirection: 'column',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              padding: '30px'
+              padding: '10px'
           }}>
+              <Typography variant="body2">
+                Usernames should be at least 4 chars, only letters and numbers. Passwords should be 
+                at least 6 chars, no whitespaces. 
+              </Typography>
               <Typography variant="body2" style={{color:"#c00000"}}> {error.error} </Typography>
           </Box>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>

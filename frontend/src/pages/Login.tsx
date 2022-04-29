@@ -54,7 +54,7 @@ const Login: FC<any> = (): ReactElement => {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    padding: '30px'
+                    padding: '10px'
                 }}>
                     <Typography variant="body2" style={{color:"#c00000"}}> {error.error} </Typography>
                 </Box>
