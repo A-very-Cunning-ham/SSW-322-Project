@@ -1,24 +1,28 @@
 import { users } from "../config/mongoCollections";
 const bcrypt = require("bcrypt");
 // const jwt = require("jsonwebtoken");
-// const session = require("express-session");
+const session = require("express-session");
 const { ObjectId } = require("mongodb");
 
-export const validate = (username: string, email: string, password: string) => {
-    if (!username || !email || !password) {
+export const validate = (
+    username: string,
+    password: string,
+    email?: string
+) => {
+    if (!username || !password) {
         throw "Invalid username or password";
     }
 
-    if (
-        username.length < 4 ||
-        password.length < 6 ||
-        username.trim().length === 0 ||
-        password.trim().length === 0 ||
-        username.includes(" ") ||
-        password.includes(" ")
-    ) {
-        throw "Invalid username or password";
-    }
+    // if (
+    //     username.length < 4 ||
+    //     password.length < 6 ||
+    //     username.trim().length === 0 ||
+    //     password.trim().length === 0 ||
+    //     username.includes(" ") ||
+    //     password.includes(" ")
+    // ) {
+    //     throw "Invalid username or password";
+    // }
 
     const regex_username = new RegExp(/^[a-z0-9]+$/i);
     const regex_email = new RegExp(
@@ -27,17 +31,15 @@ export const validate = (username: string, email: string, password: string) => {
     if (!regex_username.test(username)) {
         throw "Invalid username";
     }
-    if (!regex_email.test(email)) {
-        throw "Invalid email";
+    if (email) {
+        if (!regex_email.test(email)) {
+            throw "Invalid email";
+        }
     }
 };
 
-export const authenticate = async (
-    username: string,
-    email: string,
-    password: string
-) => {
-    validate(username, email, password);
+export const authenticate = async (username: string, password: string) => {
+    validate(username, password);
 
     const userCollection = await users();
     const dbUser = await userCollection.findOne({

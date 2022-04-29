@@ -10,8 +10,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
     session({
-        name: 'AuthCookie',
+        name: "AuthCookie",
         user: null,
+        secret: "secret",
     })
 );
 

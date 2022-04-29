@@ -8,11 +8,11 @@ router.route("/login").post(async (req: any, res: any) => {
     try {
         const auth_response = await users.authenticate(
             req.body.username,
-            req.body.email,
             req.body.password
         );
+
         if (auth_response.authenticated) {
-            req.session.user = auth_response.userId;
+            req.session.user = await auth_response.userId;
             res.json({
                 message: "Success",
             });
