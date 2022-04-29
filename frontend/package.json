@@ -21,6 +21,7 @@
     "express": "^4.17.3",
     "formik": "^2.2.9",
     "jsonwebtoken": "^8.5.1",
+    "lodash.debounce": "^4.0.8",
     "mongodb": "^4.4.1",
     "nodemon": "^2.0.15",
     "react": "^17.0.2",
@@ -56,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.7",
     "@types/material-ui": "^0.21.12",
     "@types/react-router-dom": "^5.3.3"
   },

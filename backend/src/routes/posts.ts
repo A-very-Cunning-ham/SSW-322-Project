@@ -35,6 +35,9 @@ router
     .get(async (req: any, res: any) => {
         try {
             const post = await posts.getPostById(req.params.id);
+            post.userHasApplied = post.attendees.some(
+                (attendee: any) => attendee._id.toString() === req.session.user
+            );
             res.json(post);
         } catch (err) {
             res.status(500).json({ error: err });
@@ -70,17 +73,18 @@ router
         } catch (err) {
             res.status(500).json({ error: err });
         }
-    })
-    .route("/accepted", async (req: any, res: any) => {
-        try {
-            const acceptedPosts = await posts.getAcceptedAttendeeUsernames(
-                req.params.id
-            );
-            res.json(acceptedPosts);
-        } catch (err) {
-            res.status(500).json({ error: err });
-        }
     });
+
+router.route("/:id/accepted").get(async (req: any, res: any) => {
+    try {
+        const acceptedPosts = await posts.getAcceptedAttendeeUsernames(
+            req.params.id
+        );
+        res.json(acceptedPosts);
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
 
 router.route("/history").get(async (req: any, res: any) => {
     try {

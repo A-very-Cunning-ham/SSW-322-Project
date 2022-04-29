@@ -85,21 +85,13 @@ export const respond = async (
     const postCollection = await posts();
     const notifUpdate = await postCollection.updateOne(
         {
-            $and: [
-                { hostId: ObjectId(hostId) },
-                {
-                    attendees: {
-                        $elemMatch: {
-                            _id: ObjectId(userId),
-                            status: "pending",
-                        },
-                    },
-                },
-            ],
+            hostId: ObjectId(hostId),
+            "attendees._id": ObjectId(userId),
         },
         { $set: { "attendees.$.status": status } }
     );
     if (notifUpdate.modifiedCount === 0) {
         throw "Could not update attendee status";
     }
+    return;
 };

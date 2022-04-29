@@ -33,6 +33,7 @@ interface PostType {
     capacity: number;
     address: string;
     meals: Meal[];
+    userHasApplied: boolean;
 }
 
 
@@ -54,7 +55,8 @@ const Meal: FC<any> = (): ReactElement => {
                 course: '',
                 description: '',
             }
-        ]
+        ],
+        userHasApplied: false,
         
     });
     // const [mealData, setMealData] = useState([])
@@ -72,6 +74,12 @@ const Meal: FC<any> = (): ReactElement => {
     var startTimeDate = new Date(postData.startTime);
     var endTimeDate = new Date(postData.endTime);
 
+      const handleSearch = async() => {
+        const post = await axios.patch(`/api/posts/${id}`);
+        setPostData(post.data);
+    }
+    console.log(postData.userHasApplied)
+
     return (
         <Box sx={{ m:3 }}>
         <Grid container spacing={3}>
@@ -79,7 +87,12 @@ const Meal: FC<any> = (): ReactElement => {
                 {/* <Avatar src={host.imageUrl} /> */}
                 <Box component="img" sx={{ maxWidth: "100%" }} src="https://www.lactaid.com/sites/lactaid_us/files/recipe-images/mac-and-cheese-website.png"/>
                 <Box sx={{ m:3, textAlign: 'center' }}>
-                <Button variant="contained">Join Meal</Button>
+
+    <Button variant="contained" onClick={handleSearch} 
+    sx={{ backgroundColor:postData.userHasApplied || postData.userHasApplied===undefined ? 'gray': 'blue'}}>Join Meal</Button>
+
+
+                
                 </Box>
             </Grid>
             <Grid item xs={8}>

@@ -1,5 +1,7 @@
 import React, { ReactElement, FC } from "react";
 import { AppBar, Box, Toolbar, IconButton, Typography, Button } from "@mui/material"
+
+import axios from "axios";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -8,16 +10,17 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 //import { Link, useNavigate, Navigate } from 'react-router-dom';
 
 // import Link from '@mui/material/Link';
-import { Link } from 'react-router-dom';
+import { Link, useLocation} from 'react-router-dom';
 
 
 interface Props {
   title: String
+  hide_paths: String[]
 }
 
 const settings = ['Profile', 'Account', 'Logout'];
 
-const Header: FC<Props> = ({ title }): ReactElement => {
+const Header: FC<Props> = ({ title, hide_paths }): ReactElement | null => {
   
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null); //hooks for displaying menu items
   const open = Boolean(anchorEl);
@@ -40,6 +43,24 @@ const Header: FC<Props> = ({ title }): ReactElement => {
     setAnchorEl2(null);
   };
 
+  const handleLogout = () => {
+    const res = axios.get(`api/users/logout`)
+    console.log("Logout successful!")
+    setAnchorEl2(null);
+  }
+
+  const location = useLocation();
+  if (hide_paths.includes(location.pathname)) {
+    return (
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component={Link} to={'/'} style={{ textDecoration: 'none' }} sx={{ flexGrow: 1 }} color="textPrimary">
+            {title}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    )
+  }
 
   return (
       <AppBar position="static">
@@ -106,11 +127,12 @@ const Header: FC<Props> = ({ title }): ReactElement => {
             MenuListProps={{
               'aria-labelledby': 'basic-button',
             }}>
-            {settings.map((setting) => (
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            {/* {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleClose2}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-              ))}
+              ))} */}
           </Menu>
 
         </Toolbar>
