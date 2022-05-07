@@ -76,8 +76,11 @@ const Meal: FC<any> = (): ReactElement => {
     var endTimeDate = new Date(postData.endTime);
 
       const handleSearch = async() => {
-        const post = await axios.patch(`/api/posts/${id}`);
-        setPostData(post.data);
+        const hosting = await axios.get(`/api/posts/${id}`);
+        if (!hosting){
+            const post = await axios.patch(`/api/posts/${id}`);
+            setPostData(post.data);
+        }
     }
     console.log(postData.userHasApplied)
 
