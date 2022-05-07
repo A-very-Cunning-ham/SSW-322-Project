@@ -56,7 +56,7 @@ interface guestNotifs {
 }
 
 const Notifications: FC<any> = (): ReactElement | null => {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     const [value, setValue] = React.useState(0);
     const [hostData, setHostData] = React.useState<hostNotifs>({allHostData:[]});
     const [guestData, setGuestData] = React.useState<guestNotifs>({allGuestData:[]});
@@ -80,19 +80,6 @@ const Notifications: FC<any> = (): ReactElement | null => {
         }
         fetchData();
     }, [])
-
-    if (!axios.get(`api/users/loggedin`)){
-        console.log("dolphin")
-    }
-
-    // axios.get(`api/users/loggedin`)
-    //     .then((response) => {
-    //         console.log(response.data);
-    //         if (response.data){
-    //             navigate("/login");
-    //             return null;
-    //         }
-    //     })
 
     return(
         <Box sx={{ m:3 }}>

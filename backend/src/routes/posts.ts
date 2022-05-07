@@ -75,6 +75,17 @@ router
         }
     });
 
+router.route("/:id/hostCheck").get(async (req: any, res: any) => {
+    try {
+        const hostPost = await posts.getPostById(
+            req.params.id
+        );
+        hostPost.hostId === req.session.user ? res.json(true) : res.json(false)
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
+
 router.route("/:id/accepted").get(async (req: any, res: any) => {
     try {
         const acceptedPosts = await posts.getAcceptedAttendeeUsernames(

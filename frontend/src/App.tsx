@@ -1,7 +1,8 @@
 import React from "react";
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Outlet, Navigate, Routes, Route, useLocation } from "react-router-dom";
+import axios from "axios";
 import Header from './components/Header';
 import Home from "./pages/Home";
 import Meal from "./pages/Meal";
@@ -13,6 +14,18 @@ import Notifications from "./pages/Notifications";
 import { CreateNewFolderSharp } from "@mui/icons-material";
 
 function App() {
+
+// Applying this wrapper to routes should protect them unless logged in. 
+// WIP
+  // const AuthWrapper = async () => {
+  //   const verified = await axios.get(`api/users/loggedin`)
+  
+  //   return !verified.data ? (
+  //     <Outlet />
+  //   ) : (
+  //     <Navigate to="/login"/>
+  //   );
+  // };
 
   // define theme
   const theme = createTheme({
