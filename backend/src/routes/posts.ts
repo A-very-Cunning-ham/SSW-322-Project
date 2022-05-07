@@ -69,6 +69,10 @@ router
                 req.params.id,
                 req.session.user
             );
+            const post = await posts.getPostById(req.params.id);
+            postWithAttendee.userHasApplied = post.attendees.some(
+                (attendee: any) => attendee._id.toString() === req.session.user
+            );
             res.json(postWithAttendee);
         } catch (err) {
             res.status(500).json({ error: err });
